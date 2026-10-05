@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlproLog - Repositori & Blog Studi Kasus C++ (UTS Alpro)</title>
+  <meta name="description" content="Koleksi studi kasus, solusi kode C++, analisis algoritma, dan alur logika pemrograman untuk tugas dan UTS Algoritma & Pemrograman.">
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Prism.js Tomorrow Theme for C++ syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       NAVBAR
+       ====================================================================== -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-terminal-fill text-info fs-4"></i>
+        <span class="fw-bold tracking-tight">Alpro<span class="text-info">Log</span></span>
+        <span class="brand-badge ms-1">C++ Lab</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+          <li class="nav-item">
+            <a class="nav-link active" href="#studi-kasus"><i class="bi bi-grid-fill me-1"></i> Studi Kasus</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cheatsheet"><i class="bi bi-bookmark-check-fill me-1"></i> Ringkasan C++</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#tentang"><i class="bi bi-info-circle-fill me-1"></i> Tentang</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2">
+          <!-- Button Tambah Kasus -->
+          <button class="btn btn-primary btn-sm d-flex align-items-center" onclick="openAddModal()">
+            <i class="bi bi-plus-lg me-1"></i> Tambah Kasus
+          </button>
+
+          <!-- Dropdown Opsi Data (Export/Import/Reset) -->
+          <div class="dropdown">
+            <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-gear-fill me-1"></i> Opsi Data
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+              <li>
+                <button class="dropdown-item" id="btnExportData">
+                  <i class="bi bi-download text-primary me-2"></i> Ekspor ke JSON
+                </button>
+              </li>
+              <li>
+                <label class="dropdown-item" style="cursor: pointer;">
+                  <i class="bi bi-upload text-success me-2"></i> Impor dari JSON
+                  <input type="file" id="importFileInput" accept=".json" class="d-none">
+                </label>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <button class="dropdown-item text-danger" id="btnResetDefault">
+                  <i class="bi bi-arrow-counterclockwise me-2"></i> Reset ke Data Bawaan
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Dark/Light Mode Toggle -->
+          <button class="btn btn-outline-light btn-sm d-flex align-items-center" id="themeToggleBtn" title="Ganti Tema">
+            <i class="bi bi-moon-stars-fill text-light" id="themeIcon"></i>
+            <span class="d-none d-xl-inline ms-1" id="themeLabel">Mode Gelap</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======================================================================
+       HERO SECTION
+       ====================================================================== -->
+  <header class="hero-section">
+    <div class="container position-relative" style="z-index: 1;">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-primary bg-opacity-25 border border-primary border-opacity-50 text-info small mb-3">
+            <i class="bi bi-mortarboard-fill"></i> UTS Algoritma & Pemrograman
+          </div>
+          <h1 class="hero-title display-5 text-white mb-3">
+            Koleksi Studi Kasus & Solusi Pemrograman C++
+          </h1>
+          <p class="hero-subtitle mb-4">
+            Dokumentasi lengkap pemecahan masalah algoritma, mulai dari percabangan, perulangan, matriks 2D, array of struct, hingga teknik rekursi & pengurutan cepat.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#studi-kasus" class="btn btn-info px-4 py-2 fw-semibold">
+              <i class="bi bi-search me-1"></i> Telusuri Kasus
+            </a>
+            <button class="btn btn-outline-light px-4 py-2" onclick="openAddModal()">
+              <i class="bi bi-code-slash me-1"></i> Tulis Kasus Baru
+            </button>
+          </div>
+        </div>
+
+        <!-- Stat Pills -->
+        <div class="col-lg-4 mt-4 mt-lg-0">
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="stat-pill">
+                <span class="num" id="totalCount">0</span>
+                <span class="lbl">Total Kasus</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="stat-pill">
+                <span class="num" id="categoryCount">0</span>
+                <span class="lbl">Topik Alpro</span>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="stat-pill">
+                <span class="num text-warning" id="codeCount">0</span>
+                <span class="lbl">Kode C++ Siap Uji</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       MAIN CONTENT: FILTER & CASE STUDIES
+       ====================================================================== -->
+  <main class="container my-5" id="studi-kasus">
+    <!-- Search & Filter Controls -->
+    <div class="card p-3 shadow-sm border-0 mb-4 bg-body-tertiary">
+      <div class="row g-3 align-items-center">
+        <!-- Search bar -->
+        <div class="col-md-7 col-lg-8">
+          <div class="input-group">
+            <span class="input-group-text bg-transparent border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input 
+              type="text" 
+              id="searchInput" 
+              class="form-control border-start-0" 
+              placeholder="Cari studi kasus (cth: Kasir, Struct, Matriks, Quick Sort)...">
+          </div>
+        </div>
+
+        <!-- Difficulty Dropdown -->
+        <div class="col-md-5 col-lg-4">
+          <div class="input-group">
+            <span class="input-group-text bg-transparent">
+              <i class="bi bi-funnel-fill text-muted"></i>
+            </span>
+            <select id="difficultyFilter" class="form-select">
+              <option value="all">Semua Tingkat Kesulitan</option>
+              <option value="Mudah">Mudah (Dasar)</option>
+              <option value="Menengah">Menengah (Intermediate)</option>
+              <option value="Sulit">Sulit (Advanced)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="d-flex flex-wrap gap-2 mt-3 pt-3 border-top" id="categoryPillsContainer">
+        <!-- Generated dynamically via app.js -->
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="row" id="cardsContainer">
+      <!-- Generated dynamically via app.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state d-none">
+      <i class="bi bi-journal-x"></i>
+      <h4>Tidak ada studi kasus yang sesuai</h4>
+      <p class="text-muted">Coba ubah kata kunci pencarian atau reset filter kategori di atas.</p>
+      <button class="btn btn-outline-primary btn-sm" onclick="setCategoryFilter('all'); document.getElementById('searchInput').value=''; searchQuery=''; renderCards();">
+        Reset Pencarian
+      </button>
+    </div>
+
+    <!-- ====================================================================
+         CHEAT SHEET / RINGKASAN SINTAKS C++
+         ==================================================================== -->
+    <section class="mt-5 pt-4 border-top" id="cheatsheet">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h3 class="fw-bold mb-1"><i class="bi bi-bookmark-check text-primary me-2"></i>Ringkasan Cepat Konsep Alpro C++</h3>
+          <p class="text-muted small mb-0">Catatan referensi sintaks inti yang sering keluar dalam ujian UTS / UAS Algoritma.</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 p-3 shadow-sm border-0 bg-body-tertiary">
+            <h6 class="fw-bold text-primary"><i class="bi bi-braces me-2"></i>Percabangan & Perulangan</h6>
+            <p class="small text-muted mb-2">Penyeleksian kondisi & loop kontrol aliran data.</p>
+            <pre class="bg-dark text-light p-2 rounded small m-0"><code>if (nilai >= 85) {
+    grade = 'A';
+} else {
+    grade = 'B';
+}
+
+for (int i = 0; i < N; i++) {
+    // eksekusi N kali
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 p-3 shadow-sm border-0 bg-body-tertiary">
+            <h6 class="fw-bold text-success"><i class="bi bi-diagram-3 me-2"></i>Array & Struct</h6>
+            <p class="small text-muted mb-2">Pengelompokan data majemuk dengan atribut berbeda.</p>
+            <pre class="bg-dark text-light p-2 rounded small m-0"><code>struct Mahasiswa {
+    string nim;
+    double nilai;
+};
+
+Mahasiswa mhs[100];
+mhs[0].nim = "230101";
+mhs[0].nilai = 90.5;</code></pre>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 p-3 shadow-sm border-0 bg-body-tertiary">
+            <h6 class="fw-bold text-warning"><i class="bi bi-arrow-repeat me-2"></i>Fungsi & Rekursi</h6>
+            <p class="small text-muted mb-2">Modularisasi kode dan pemanggilan diri sendiri.</p>
+            <pre class="bg-dark text-light p-2 rounded small m-0"><code>int faktorial(int n) {
+    if (n <= 1) return 1; // Base case
+    return n * faktorial(n - 1);
+}
+
+// O(log N) untuk Binary Search</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         ABOUT SECTION
+         ==================================================================== -->
+    <section class="mt-5 pt-4 border-top" id="tentang">
+      <div class="card bg-primary bg-opacity-10 border-primary border-opacity-25 p-4 rounded-4">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h4 class="fw-bold text-primary mb-2"><i class="bi bi-info-circle me-2"></i>Tentang Repositori AlproLog</h4>
+            <p class="mb-0 text-secondary">
+              Aplikasi ini dikembangkan khusus sebagai blog dan bank data studi kasus <strong>Algoritma dan Pemrograman (Alpro)</strong> menggunakan C++. Seluruh data tersimpan secara otomatis di peramban (Local Storage), mendukung penambahan studi kasus baru, fitur ekspor/impor file JSON, serta unduh langsung file source code <code>.cpp</code> untuk pengumpulan tugas.
+            </p>
+          </div>
+          <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <button class="btn btn-primary" onclick="openAddModal()">
+              <i class="bi bi-journal-plus me-1"></i> Tulis Studi Kasus Sekarang
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       MODAL: DETAIL STUDI KASUS
+       ====================================================================== -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <span id="detailModalCategory" class="badge bg-primary"></span>
+              <span id="detailModalDifficulty" class="badge"></span>
+            </div>
+            <h4 class="modal-title fw-bold" id="detailModalTitle">Judul Studi Kasus</h4>
+            <div class="text-muted small mt-1">
+              <i class="bi bi-person me-1"></i> <span id="detailModalAuthor">Mahasiswa</span>
+              <span class="mx-2">•</span>
+              <i class="bi bi-calendar3 me-1"></i> <span id="detailModalDate">-</span>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-0">
+          <!-- Navigation Tabs -->
+          <ul class="nav nav-tabs custom-tabs px-3 pt-2" id="detailTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-masalah-btn" data-bs-toggle="tab" data-bs-target="#tab-masalah" type="button" role="tab">
+                <i class="bi bi-file-text me-1"></i> Deskripsi & Analisis
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-langkah-btn" data-bs-toggle="tab" data-bs-target="#tab-langkah" type="button" role="tab">
+                <i class="bi bi-diagram-2 me-1"></i> Alur Logika / Flowchart
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-kode-btn" data-bs-toggle="tab" data-bs-target="#tab-kode" type="button" role="tab">
+                <i class="bi bi-code-slash me-1"></i> Source Code C++
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-io-btn" data-bs-toggle="tab" data-bs-target="#tab-io" type="button" role="tab">
+                <i class="bi bi-terminal me-1"></i> Contoh Uji (I/O)
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content p-4" id="detailTabContent">
+            <!-- Tab 1: Deskripsi & Analisis -->
+            <div class="tab-pane fade show active" id="tab-masalah" role="tabpanel">
+              <h5 class="fw-bold mb-3">Deskripsi Persoalan:</h5>
+              <div id="detailProblemStatement" class="sample-io-box mb-4" style="line-height: 1.7; font-family: inherit;"></div>
+
+              <h6 class="fw-bold mb-2"><i class="bi bi-clock-history me-1 text-primary"></i> Analisis Kompleksitas (Big-O):</h6>
+              <div class="alert alert-secondary py-2 px-3 small font-monospace" id="detailComplexity"></div>
+            </div>
+
+            <!-- Tab 2: Alur Logika / Flowchart -->
+            <div class="tab-pane fade" id="tab-langkah" role="tabpanel">
+              <h5 class="fw-bold mb-3">Tahapan Algoritma & Logika:</h5>
+              <ol class="step-timeline" id="detailFlowchartSteps"></ol>
+            </div>
+
+            <!-- Tab 3: Source Code C++ -->
+            <div class="tab-pane fade" id="tab-kode" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="small text-muted font-monospace"><i class="bi bi-file-earmark-code me-1"></i> Bahasa: C++ (Standard ISO C++17)</div>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-outline-primary" id="btnCopyCodeDetail">
+                    <i class="bi bi-clipboard me-1"></i> Salin Kode
+                  </button>
+                  <button class="btn btn-sm btn-success" id="btnDownloadCpp">
+                    <i class="bi bi-download me-1"></i> Unduh File .cpp
+                  </button>
+                </div>
+              </div>
+              <div class="code-wrapper">
+                <pre class="line-numbers"><code class="language-cpp" id="detailCodeBlock"></code></pre>
+              </div>
+            </div>
+
+            <!-- Tab 4: Contoh Uji (I/O) -->
+            <div class="tab-pane fade" id="tab-io" role="tabpanel">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <h6 class="fw-bold text-success"><i class="bi bi-box-arrow-in-right me-1"></i> Sampel Masukan (Input):</h6>
+                  <div class="sample-io-box" id="detailSampleInput"></div>
+                </div>
+                <div class="col-md-6">
+                  <h6 class="fw-bold text-primary"><i class="bi bi-box-arrow-up-right me-1"></i> Sampel Keluaran (Output):</h6>
+                  <div class="sample-io-box" id="detailSampleOutput"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL: FORM TAMBAH / EDIT STUDI KASUS
+       ====================================================================== -->
+  <div class="modal fade" id="caseFormModal" tabindex="-1" aria-labelledby="caseFormModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <form id="caseForm">
+          <input type="hidden" id="formId">
+
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="caseFormModalTitle">Tambah Studi Kasus</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body p-4">
+            <div class="row g-3">
+              <!-- Judul -->
+              <div class="col-md-8">
+                <label class="form-label fw-semibold">Judul Studi Kasus <span class="text-danger">*</span></label>
+                <input type="text" id="formTitle" class="form-control" placeholder="Contoh: Sistem Kasir Toko Buku" required>
+              </div>
+
+              <!-- Tingkat Kesulitan -->
+              <div class="col-md-4">
+                <label class="form-label fw-semibold">Tingkat Kesulitan <span class="text-danger">*</span></label>
+                <select id="formDifficulty" class="form-select" required>
+                  <option value="Mudah">Mudah</option>
+                  <option value="Menengah" selected>Menengah</option>
+                  <option value="Sulit">Sulit</option>
+                </select>
+              </div>
+
+              <!-- Kategori / Topik -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Kategori Topik <span class="text-danger">*</span></label>
+                <input type="text" id="formCategory" class="form-control" list="categoryOptions" placeholder="Pilih atau ketik topik baru" required>
+                <datalist id="categoryOptions">
+                  <option value="Percabangan & Perulangan">
+                  <option value="Array & Struct">
+                  <option value="Array 2D & Matriks">
+                  <option value="Searching & Sorting">
+                  <option value="Fungsi & Rekursi">
+                  <option value="Pointer & Alokasi Memori">
+                  <option value="Struktur Data Sederhana">
+                </datalist>
+              </div>
+
+              <!-- Penulis -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Nama Penulis / Mahasiswa</label>
+                <input type="text" id="formAuthor" class="form-control" placeholder="Contoh: Budi Santoso (NIM 230101)">
+              </div>
+
+              <!-- Ringkasan Singkat -->
+              <div class="col-12">
+                <label class="form-label fw-semibold">Ringkasan Singkat (1-2 kalimat) <span class="text-danger">*</span></label>
+                <textarea id="formSummary" class="form-control" rows="2" placeholder="Ringkasan penjelasan untuk ditampilkan pada kartu blog..." required></textarea>
+              </div>
+
+              <!-- Deskripsi Masalah Lengkap -->
+              <div class="col-12">
+                <label class="form-label fw-semibold">Deskripsi Masalah & Ketentuan Soal</label>
+                <textarea id="formProblem" class="form-control font-monospace" rows="4" placeholder="Tuliskan spesifikasi persoalan, aturan bisnis, dan rumus yang digunakan..."></textarea>
+              </div>
+
+              <!-- Langkah Logika / Algoritma -->
+              <div class="col-12">
+                <label class="form-label fw-semibold">Langkah Logika Algoritma (1 baris per langkah)</label>
+                <textarea id="formSteps" class="form-control" rows="3" placeholder="Langkah 1: Inisialisasi variabel&#10;Langkah 2: Baca input dari pengguna&#10;Langkah 3: Hitung rumus"></textarea>
+                <div class="form-text small">Tiap baris baru akan diubah menjadi urutan langkah flowchart.</div>
+              </div>
+
+              <!-- Kompleksitas -->
+              <div class="col-12">
+                <label class="form-label fw-semibold">Analisis Kompleksitas Waktu & Ruang (Big-O)</label>
+                <input type="text" id="formComplexity" class="form-control" placeholder="Contoh: Waktu: O(N log N) | Ruang: O(1)">
+              </div>
+
+              <!-- Sampel Input & Output -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Contoh Masukan (Input Sample)</label>
+                <textarea id="formSampleInput" class="form-control font-monospace small" rows="3" placeholder="Contoh input nilai..."></textarea>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Contoh Keluaran (Output Sample)</label>
+                <textarea id="formSampleOutput" class="form-control font-monospace small" rows="3" placeholder="Contoh hasil konsol yang diharapkan..."></textarea>
+              </div>
+
+              <!-- Source Code C++ -->
+              <div class="col-12">
+                <label class="form-label fw-semibold">Source Code C++ Lengkap <span class="text-danger">*</span></label>
+                <textarea id="formCode" class="form-control font-monospace text-bg-dark" rows="12" placeholder="#include <iostream>&#10;using namespace std;&#10;&#10;int main() {&#10;    // Kode program C++&#10;    return 0;&#10;}" required></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-save me-1"></i> Simpan Studi Kasus
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer" style="z-index: 2000;"></div>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer>
+    <div class="container text-center">
+      <div class="mb-2">
+        <span class="fw-bold text-white fs-5">Alpro<span class="text-info">Log</span></span>
+        <span class="text-muted mx-2">|</span>
+        <span class="small">Koleksi Studi Kasus Algoritma & Pemrograman C++</span>
+      </div>
+      <p class="small mb-1 text-muted">
+        Dibangun untuk keperluan dokumentasi akademik, praktikum laboratorium, dan persiapan UTS/UAS Alpro.
+      </p>
+      <div class="small text-secondary">
+        &copy; 2026 UTS Alpro Hub. Dilengkapi HTML5, Bootstrap 5.3, PrismJS, dan Vanilla JavaScript.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Prism.js core + C++ grammar + Line numbers -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
