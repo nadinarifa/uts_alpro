@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flowchart Modul B - Rekapitulasi Anggaran</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: #f8fafc;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .header h1 {
+      margin: 0 0 8px 0;
+      font-size: 26px;
+      color: #1e293b;
+    }
+    .header p {
+      margin: 0;
+      color: #64748b;
+      font-size: 15px;
+    }
+    .badge {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #4338ca;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 10px;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      max-width: 95%;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+    #diagram {
+      min-width: 650px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">Studi Kasus 09 | Modul B: Rekapitulasi</div>
+    <h1>Diagram Alir (Flowchart) Program Rekapitulasi Anggaran</h1>
+    <p>Penanggung Jawab: Bryant Anthony Kores Obhetan (NIM: 322610003)</p>
+  </div>
+
+  <div class="controls">
+    <button onclick="downloadPNG()">📥 Unduh Gambar Flowchart (PNG)</button>
+    <button onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+  </div>
+
+  <div class="card" id="flowchart-container">
+    <div class="mermaid" id="diagram">
+flowchart TD
+    A([Mulai]) --> B["Inisialisasi Variabel Akumulator:<br>totalRencana = 0, totalRealisasi = 0<br>totalPenghematan = 0, totalKelebihan = 0<br>jumlahHemat = 0, jumlahTepat = 0, jumlahMelebihi = 0<br>totalKomponen = 0, penyimpanganTerbesar = 0<br>komponenTerbesar = '-', kondisiKegiatan = '-'"]
+    
+    B --> C[/"Input namaKomponen"/]
+    C --> D{"namaKomponen kosong?"}
+    D -- Ya --> C
+    D -- Tidak --> E[/"Input anggaranRencana"/]
+    
+    E --> F{"Bukan angka atau<br>anggaranRencana <= 0?"}
+    F -- Ya --> E
+    F -- Tidak --> G[/"Input realisasi"/]
+    
+    G --> H{"Bukan angka atau<br>realisasi < 0?"}
+    H -- Ya --> G
+    H -- Tidak --> I["totalKomponen = totalKomponen + 1<br>totalRencana = totalRencana + anggaranRencana<br>totalRealisasi = totalRealisasi + realisasi<br>selisih = realisasi - anggaranRencana"]
+    
+    I --> J{"realisasi < anggaranRencana?"}
+    J -- Ya --> K["jumlahHemat = jumlahHemat + 1<br>totalPenghematan = totalPenghematan + (anggaranRencana - realisasi)"]
+    J -- Tidak --> L{"realisasi == anggaranRencana?"}
+    
+    L -- Ya --> M["jumlahTepat = jumlahTepat + 1"]
+    L -- Tidak --> N["jumlahMelebihi = jumlahMelebihi + 1<br>totalKelebihan = totalKelebihan + selisih"]
+    
+    N --> O{"selisih > penyimpanganTerbesar?"}
+    O -- Ya --> P["penyimpanganTerbesar = selisih<br>komponenTerbesar = namaKomponen"]
+    O -- Tidak --> Q
+    
+    K --> Q[/"Input pilihan lanjut (y/t)"/]
+    M --> Q
+    P --> Q
+    
+    Q --> R{"Pilihan bukan y, Y, t, atau T?"}
+    R -- Ya --> Q
+    R -- Tidak --> S{"Pilihan y atau Y?"}
+    S -- Ya --> C
+    
+    S -- Tidak --> T{"totalRencana > 0?"}
+    T -- Ya --> U["persentasePenyerapan = (totalRealisasi / totalRencana) * 100"]
+    T -- Tidak --> V["persentasePenyerapan = 0"]
+    
+    U --> W{"totalRealisasi < totalRencana?"}
+    V --> W
+    
+    W -- Ya --> X["kondisiKegiatan = 'Hemat'"]
+    W -- Tidak --> Y{"totalRealisasi == totalRencana?"}
+    
+    Y -- Ya --> Z["kondisiKegiatan = 'Sesuai Anggaran'"]
+    Y -- Tidak --> AA["kondisiKegiatan = 'Melebihi Anggaran'"]
+    
+    X --> AB[/"Tampilkan Laporan Rekapitulasi:<br>Total Rencana, Realisasi, Penghematan, Kelebihan, Penyerapan,<br>Statistik Komponen, Penyimpangan Terbesar, dan Kondisi Keseluruhan"/]
+    Z --> AB
+    AA --> AB
+    
+    AB --> AC([Selesai])
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      flowchart: {
+        curve: 'basis',
+        nodeSpacing: 40,
+        rankSpacing: 40
+      }
+    });
+
+    function downloadPNG() {
+      const svg = document.querySelector("#diagram svg");
+      if (!svg) return alert("Diagram belum selesai dimuat.");
+
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const img = new Image();
+
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+      const URL = window.URL || window.webkitURL || window;
+      const blobURL = URL.createObjectURL(svgBlob);
+
+      img.onload = function() {
+        canvas.width = img.width * 2;
+        canvas.height = img.height * 2;
+        ctx.scale(2, 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        const pngURL = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.download = "flowchart_modul_b.png";
+        a.href = pngURL;
+        a.click();
+        URL.revokeObjectURL(blobURL);
+      };
+      img.src = blobURL;
+    }
+  </script>
+</body>
+</html>
