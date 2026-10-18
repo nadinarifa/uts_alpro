@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Pemeriksaan Anggaran Kegiatan Mahasiswa - UTS Alpro (SSI1144)</title>
+  <meta name="description" content="Dokumentasi lengkap Proyek Ujian Tengah Semester Algoritma dan Pengantar Pemrograman (SSI1144) - Studi Kasus 09 Sistem Pemeriksaan Anggaran Kegiatan Mahasiswa, Universitas Ma Chung.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Prism.js Tomorrow Theme for C++ -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+  <!-- Mermaid.js for Flowcharts -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --secondary: #0ea5e9;
+      --accent: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    [data-bs-theme="dark"] {
+      --bg-body: #0b1120;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.65;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    .navbar-custom {
+      background: rgba(15, 23, 42, 0.95) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      color: white;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #94a3b8 !important;
+      transition: all 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #38bdf8 !important;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.25) 0%, transparent 50%),
+                  radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 50%),
+                  linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      color: white;
+      padding: 70px 0 60px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+    .hero-badge {
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(129, 140, 248, 0.3);
+      color: #a5b4fc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Section Cards */
+    .content-section {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+    .custom-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      margin-bottom: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .custom-card:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+    }
+
+    /* Member Badge */
+    .member-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.05);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+    .member-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+      color: white;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* Code & Pre */
+    pre, code {
+      font-family: var(--font-mono) !important;
+    }
+    pre[class*="language-"] {
+      border-radius: 12px;
+      margin: 15px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Table Custom */
+    .table-custom {
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 0.92rem;
+    }
+    .table-custom th {
+      background-color: #1e293b;
+      color: #f8fafc;
+      font-weight: 600;
+      border: none;
+      padding: 12px 14px;
+    }
+    .table-custom td {
+      vertical-align: middle;
+      padding: 11px 14px;
+      border-color: var(--card-border);
+    }
+
+    /* Simulator Box */
+    .sim-box {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      color: #f8fafc;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Tab Pill */
+    .subnav-pills .nav-link {
+      color: var(--text-muted) !important;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .subnav-pills .nav-link.active {
+      background-color: var(--primary) !important;
+      color: white !important;
+    }
+  </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbarMain" data-bs-offset="100">
+
+  <!-- ======================================================================
+       NAVBAR
+       ====================================================================== -->
+  <nav class="navbar navbar-expand-xl navbar-dark navbar-custom sticky-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#beranda">
+        <i class="bi bi-wallet2 text-info fs-4"></i>
+        <span class="fw-bold tracking-tight">Anggaran<span class="text-info">Alpro</span></span>
+        <span class="brand-badge ms-1">Kasus 09</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav me-auto mb-2 mb-xl-0 ms-xl-3">
+          <li class="nav-item"><a class="nav-link" href="#beranda"><i class="bi bi-house-door me-1"></i> Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#analisis"><i class="bi bi-file-earmark-text me-1"></i> Analisis</a></li>
+          <li class="nav-item"><a class="nav-link" href="#modul-a"><i class="bi bi-cpu me-1"></i> Modul A</a></li>
+          <li class="nav-item"><a class="nav-link" href="#modul-b"><i class="bi bi-bar-chart me-1"></i> Modul B</a></li>
+          <li class="nav-item"><a class="nav-link" href="#integrasi"><i class="bi bi-diagram-3 me-1"></i> Integrasi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#simulator"><i class="bi bi-play-circle me-1"></i> Simulator</a></li>
+          <li class="nav-item"><a class="nav-link" href="#refleksi"><i class="bi bi-chat-quote me-1"></i> Refleksi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#penggunaan-ai"><i class="bi bi-robot me-1"></i> AI Policy</a></li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2">
+          <a href="https://github.com/nadinarifa/uts_alpro" target="_blank" class="btn btn-outline-light btn-sm d-flex align-items-center gap-1">
+            <i class="bi bi-github"></i> <span class="d-none d-md-inline">GitHub Repo</span>
+          </a>
+          <button class="btn btn-outline-info btn-sm" id="themeToggleBtn" title="Ganti Mode Terang/Gelap">
+            <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======================================================================
+       1. HERO & BERANDA
+       ====================================================================== -->
+  <header class="hero-section" id="beranda">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-8">
+          <div class="hero-badge mb-3">
+            <i class="bi bi-mortarboard-fill"></i> Ujian Tengah Semester | Algoritma &amp; Pengantar Pemrograman (SSI1144)
+          </div>
+          <h1 class="hero-title mb-3">
+            Sistem Pemeriksaan &amp; Rekapitulasi Anggaran Kegiatan Mahasiswa
+          </h1>
+          <p class="lead text-light text-opacity-75 mb-4">
+            Aplikasi konsol C++ prosedural untuk mengevaluasi efisiensi anggaran per pos pengeluaran, mendeteksi toleransi kelebihan belanja (batas 10%), serta menyajikan rekapitulasi agregat dan kesimpulan kondisi kegiatan.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#simulator" class="btn btn-info px-4 py-2 fw-bold text-dark d-flex align-items-center gap-2 shadow-sm">
+              <i class="bi bi-play-circle-fill"></i> Coba Simulator Web
+            </a>
+            <a href="#integrasi" class="btn btn-outline-light px-4 py-2 fw-semibold d-flex align-items-center gap-2">
+              <i class="bi bi-code-slash"></i> Lihat Kode Terintegrasi
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="custom-card bg-body-tertiary border-0 text-start shadow-lg">
+            <h6 class="fw-bold text-primary mb-3 text-uppercase tracking-wider small">
+              <i class="bi bi-people-fill me-1"></i> Tim Pengembang (Kelompok 9)
+            </h6>
+            
+            <div class="member-card mb-3">
+              <div class="member-avatar">N</div>
+              <div>
+                <div class="fw-bold">Nadin Arifa Salsabila</div>
+                <div class="small text-muted">NIM: 322610009</div>
+                <div class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 mt-1">Penanggung Jawab Modul A</div>
+              </div>
+            </div>
+
+            <div class="member-card">
+              <div class="member-avatar" style="background: linear-gradient(135deg, #0ea5e9, #10b981);">B</div>
+              <div>
+                <div class="fw-bold">Bryant Anthony Kores Obhetan</div>
+                <div class="small text-muted">NIM: 322610003</div>
+                <div class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 mt-1">Penanggung Jawab Modul B</div>
+              </div>
+            </div>
+
+            <div class="mt-3 pt-3 border-top small text-muted text-center">
+              Program Studi Sistem Informasi &bull; Universitas Ma Chung
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       2. ANALISIS MASALAH
+       ====================================================================== -->
+  <section class="content-section" id="analisis">
+    <div class="container">
+      <div class="section-title">
+        <i class="bi bi-file-earmark-text text-primary"></i> 2. Analisis Masalah
+      </div>
+      <p class="section-subtitle">Identifikasi latar belakang, aturan perhitungan, batasan proyek, tabel IPO, serta spesifikasi variabel &amp; tipe data.</p>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="custom-card h-100">
+            <h5 class="fw-bold mb-3"><i class="bi bi-lightbulb text-warning me-2"></i>Latar Belakang &amp; Rumusan Masalah</h5>
+            <p class="text-muted small">
+              Pengelolaan anggaran organisasi mahasiswa sering menghadapi deviasi pengeluaran riil dibandingkan rencana anggaran biaya (RAB). Tanpa sistem otomatis, bendahara sulit melacak pos mana yang hemat atau mengalami kebocoran biaya.
+            </p>
+            <h6 class="fw-bold small text-uppercase text-primary mt-3">Tujuan Program:</h6>
+            <ul class="small text-muted ps-3 mb-0">
+              <li>Mengevaluasi selisih dan persentase penyimpangan anggaran per pos kegiatan.</li>
+              <li>Mengkategorikan status pos belanja: <strong>Hemat</strong>, <strong>Tepat</strong>, atau <strong>Melebihi Anggaran</strong>.</li>
+              <li>Memberikan peringatan proporsional: <strong>Perlu Evaluasi</strong> (&le; 10%) atau <strong>Peringatan</strong> (&gt; 10%).</li>
+              <li>Mengagregasi total penghematan, kelebihan, rasio penyerapan, dan status akhir kegiatan.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="custom-card h-100">
+            <h5 class="fw-bold mb-3"><i class="bi bi-shield-check text-success me-2"></i>Ketentuan &amp; Batasan Proyek</h5>
+            <ul class="small text-muted ps-3 mb-0">
+              <li><strong>Bahasa Pemrograman:</strong> C++ murni berbasis konsol/terminal.</li>
+              <li><strong>Paradigma:</strong> Pemrograman terstruktur prosedural sesuai silabus UTS Semester 1.</li>
+              <li><strong>Batasan:</strong> Tanpa array, tanpa vector, tanpa struct, dan tanpa fungsi kompleks (murni variabel akumulator).</li>
+              <li><strong>Robustness:</strong> Menolak input nama kosong, angka non-numerik, dan angka tidak valid (rencana &le; 0, realisasi &lt; 0).</li>
+              <li><strong>Hasil Akhir:</strong> Menetapkan status kegiatan secara agregat: <em>Hemat</em>, <em>Sesuai Anggaran</em>, atau <em>Melebihi Anggaran</em>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabel IPO -->
+        <div class="col-12">
+          <div class="custom-card">
+            <h5 class="fw-bold mb-3"><i class="bi bi-table text-info me-2"></i>Tabel Input - Process - Output (IPO)</h5>
+            <div class="table-responsive">
+              <table class="table table-custom table-hover">
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">Masukan (Input)</th>
+                    <th style="width: 45%;">Proses (Process)</th>
+                    <th style="width: 30%;">Keluaran (Output)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code>namaKomponen</code> (teks)<br>
+                      <code>anggaranRencana</code> (&gt; 0)<br>
+                      <code>realisasi</code> (&ge; 0)<br>
+                      <code>pilihan</code> (y / t)
+                    </td>
+                    <td>
+                      1. Validasi masukan (cek kosong, non-angka, negatif).<br>
+                      2. Hitung <code>selisih = realisasi - anggaranRencana</code>.<br>
+                      3. Hitung <code>persen = (selisih / anggaranRencana) * 100</code>.<br>
+                      4. Tentukan status (Hemat / Tepat / Melebihi) &amp; toleransi 10%.<br>
+                      5. Akumulasi total rencana, realisasi, hemat, kelebihan.<br>
+                      6. Pelacakan nilai maksimum pembengkakan.<br>
+                      7. Hitung penyerapan dan status agregat kegiatan.
+                    </td>
+                    <td>
+                      <strong>Rincian Komponen:</strong> Selisih, persen, status, keterangan.<br><br>
+                      <strong>Laporan Akhir:</strong> Total rencana, realisasi, hemat, lebih, penyerapan, statistik, pos penyimpangan terbesar, kondisi keseluruhan.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Variabel -->
+        <div class="col-12">
+          <div class="custom-card">
+            <h5 class="fw-bold mb-3"><i class="bi bi-code-square text-primary me-2"></i>Tabel Variabel dan Tipe Data</h5>
+            <div class="table-responsive">
+              <table class="table table-custom table-hover">
+                <thead>
+                  <tr>
+                    <th>Nama Variabel</th>
+                    <th>Tipe Data</th>
+                    <th>Nilai Awal</th>
+                    <th>Modul</th>
+                    <th>Kegunaan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>namaKomponen</code></td><td>string</td><td><code>""</code></td><td>A</td><td>Menyimpan nama pos anggaran.</td></tr>
+                  <tr><td><code>anggaranRencana</code></td><td>double</td><td><code>0.0</code></td><td>A</td><td>Pagu anggaran yang direncanakan (&gt; 0).</td></tr>
+                  <tr><td><code>realisasi</code></td><td>double</td><td><code>0.0</code></td><td>A</td><td>Realisasi pengeluaran aktual (&ge; 0).</td></tr>
+                  <tr><td><code>selisih</code></td><td>double</td><td><code>0.0</code></td><td>A &amp; B</td><td>Hasil pengurangan <code>realisasi - anggaranRencana</code>.</td></tr>
+                  <tr><td><code>persenPenyimpangan</code></td><td>double</td><td><code>0.0</code></td><td>A</td><td>Persentase deviasi pengeluaran per pos.</td></tr>
+                  <tr><td><code>status</code></td><td>string</td><td><code>""</code></td><td>A</td><td>Kategori status ("Hemat", "Tepat", "Melebihi Anggaran").</td></tr>
+                  <tr><td><code>keterangan</code></td><td>string</td><td><code>"-"</code></td><td>A</td><td>Catatan toleransi ("-", "Perlu Evaluasi", "Peringatan").</td></tr>
+                  <tr><td><code>totalRencana</code></td><td>double</td><td><code>0.0</code></td><td>B</td><td>Akumulator penjumlahan anggaran rencana seluruh pos.</td></tr>
+                  <tr><td><code>totalRealisasi</code></td><td>double</td><td><code>0.0</code></td><td>B</td><td>Akumulator penjumlahan realisasi belanja seluruh pos.</td></tr>
+                  <tr><td><code>totalPenghematan</code></td><td>double</td><td><code>0.0</code></td><td>B</td><td>Akumulator jumlah dana yang dihemat pada pos hemat.</td></tr>
+                  <tr><td><code>totalKelebihan</code></td><td>double</td><td><code>0.0</code></td><td>B</td><td>Akumulator jumlah pembengkakan pada pos melebihi.</td></tr>
+                  <tr><td><code>penyimpanganTerbesar</code></td><td>double</td><td><code>0.0</code></td><td>B</td><td>Nilai pembengkakan nominal terbesar yang ditemukan.</td></tr>
+                  <tr><td><code>komponenTerbesar</code></td><td>string</td><td><code>"-"</code></td><td>B</td><td>Nama pos dengan pembengkakan nominal terbesar.</td></tr>
+                  <tr><td><code>kondisiKegiatan</code></td><td>string</td><td><code>"-"</code></td><td>B</td><td>Status agregat akhir kegiatan.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       3. MODUL A
+       ====================================================================== -->
+  <section class="content-section bg-body-tertiary" id="modul-a">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <div>
+          <div class="section-title"><i class="bi bi-cpu text-primary"></i> 3. Modul A: Proses Utama</div>
+          <p class="section-subtitle mb-0">Evaluasi individual status per komponen dan deteksi ambang batas toleransi kelebihan 10%.</p>
+        </div>
+        <div class="badge bg-primary px-3 py-2 fs-6">Penanggung Jawab: Nadin Arifa Salsabila (322610009)</div>
+      </div>
+
+      <ul class="nav nav-pills subnav-pills mb-4" id="modulATabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#a-algoritma">Algoritma &amp; Pseudocode</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#a-flowchart">Flowchart</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#a-code">Source Code C++</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#a-pengujian">Pengujian &amp; Screenshots</button></li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Tab 1: Algoritma & Pseudocode -->
+        <div class="tab-pane fade show active" id="a-algoritma">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="custom-card h-100">
+                <h5 class="fw-bold mb-3">Algoritma Deskriptif Modul A</h5>
+                <ol class="small text-muted ps-3 mb-0" style="line-height: 1.8;">
+                  <li>Mulai.</li>
+                  <li>Tampilkan judul program pemeriksaan anggaran.</li>
+                  <li>Input <code>namaKomponen</code>. Jika kosong, minta input ulang.</li>
+                  <li>Input <code>anggaranRencana</code>. Jika bukan angka atau &le; 0, minta input ulang.</li>
+                  <li>Input <code>realisasi</code>. Jika bukan angka atau negatif (&lt; 0), minta input ulang.</li>
+                  <li>Hitung <code>selisih = realisasi - anggaranRencana</code>.</li>
+                  <li>Hitung <code>persenPenyimpangan = (selisih / anggaranRencana) * 100</code>.</li>
+                  <li>Jika <code>realisasi &lt; anggaranRencana</code>, <code>status = "Hemat"</code>.</li>
+                  <li>Jika <code>realisasi == anggaranRencana</code>, <code>status = "Tepat"</code>.</li>
+                  <li>Jika <code>realisasi &gt; anggaranRencana</code>, <code>status = "Melebihi Anggaran"</code>:
+                    <ul>
+                      <li>Jika kelebihan &le; 10% rencana, <code>keterangan = "Perlu Evaluasi"</code>.</li>
+                      <li>Jika kelebihan &gt; 10% rencana, <code>keterangan = "Peringatan"</code>.</li>
+                    </ul>
+                  </li>
+                  <li>Tampilkan rincian hasil pemeriksaan komponen.</li>
+                  <li>Tanyakan pilihan periksa lagi (y/t). Jika 'y', ulangi langkah 3.</li>
+                  <li>Selesai.</li>
+                </ol>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="custom-card h-100">
+                <h5 class="fw-bold mb-3">Pseudocode Modul A</h5>
+                <pre class="bg-dark text-light p-3 rounded small" style="max-height: 400px; overflow-y: auto;"><code>ALGORITMA PemeriksaanAnggaranModulA
+DEKLARASI
+    namaKomponen, status, keterangan, pilihan : string
+    anggaranRencana, realisasi, selisih, persenPenyimpangan : real
+
+MULAI
+    TAMPILKAN "PEMERIKSAAN ANGGARAN KEGIATAN MAHASISWA"
+    ULANGI
+        BACA namaKomponen
+        SELAMA namaKomponen kosong LAKUKAN
+            BACA namaKomponen
+        AKHIR SELAMA
+
+        BACA anggaranRencana
+        SELAMA anggaranRencana bukan angka ATAU anggaranRencana <= 0 LAKUKAN
+            BACA anggaranRencana
+        AKHIR SELAMA
+
+        BACA realisasi
+        SELAMA realisasi bukan angka ATAU realisasi < 0 LAKUKAN
+            BACA realisasi
+        AKHIR SELAMA
+
+        selisih <- realisasi - anggaranRencana
+        persenPenyimpangan <- selisih / anggaranRencana * 100
+        keterangan <- "-"
+
+        JIKA realisasi < anggaranRencana MAKA
+            status <- "Hemat"
+        LAINNYA JIKA realisasi = anggaranRencana MAKA
+            status <- "Tepat"
+        LAINNYA
+            status <- "Melebihi Anggaran"
+            JIKA selisih * 100 <= anggaranRencana * 10 MAKA
+                keterangan <- "Perlu Evaluasi"
+            LAINNYA
+                keterangan <- "Peringatan"
+            AKHIR JIKA
+        AKHIR JIKA
+
+        TAMPILKAN namaKomponen, anggaranRencana, realisasi, selisih,
+                  persenPenyimpangan, status, keterangan
+        BACA pilihan
+    SAMPAI pilihan = "t" ATAU pilihan = "T"
+SELESAI</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Flowchart -->
+        <div class="tab-pane fade" id="a-flowchart">
+          <div class="custom-card text-center">
+            <h5 class="fw-bold mb-3">Diagram Alir (Flowchart) Modul A</h5>
+            <div class="mermaid">
+flowchart TD
+    A([Mulai]) --> B[/"Input nama komponen"/]
+    B --> C{"Nama kosong?"}
+    C -- Ya --> B
+    C -- Tidak --> D[/"Input anggaran rencana"/]
+    D --> E{"Bukan angka atau <= 0?"}
+    E -- Ya --> D
+    E -- Tidak --> F[/"Input realisasi"/]
+    F --> G{"Bukan angka atau negatif?"}
+    G -- Ya --> F
+    G -- Tidak --> H["Hitung selisih dan persen penyimpangan, keterangan = '-'"]
+    H --> I{"Realisasi < rencana?"}
+    I -- Ya --> J["Status: Hemat"]
+    I -- Tidak --> K{"Realisasi == rencana?"}
+    K -- Ya --> L["Status: Tepat"]
+    K -- Tidak --> M["Status: Melebihi Anggaran"]
+    M --> N{"Selisih <= 10% dari rencana?"}
+    N -- Ya --> O["Keterangan: Perlu Evaluasi"]
+    N -- Tidak --> P["Keterangan: Peringatan"]
+    J --> Q[/"Tampilkan hasil pemeriksaan"/]
+    L --> Q
+    O --> Q
+    P --> Q
+    Q --> R[/"Input pilihan y atau t"/]
+    R --> S{"Pilihan bukan y/t?"}
+    S -- Ya --> R
+    S -- Tidak --> T{"Pilihan y atau Y?"}
+    T -- Ya --> B
+    T -- Tidak --> U([Selesai])
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Source Code C++ -->
+        <div class="tab-pane fade" id="a-code">
+          <div class="custom-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="fw-bold m-0"><i class="bi bi-file-earmark-code text-primary me-2"></i>Source Code C++ (Modul A)</h5>
+              <button class="btn btn-outline-secondary btn-sm" onclick="copyCode('codeModulA')"><i class="bi bi-clipboard"></i> Salin Kode</button>
+            </div>
+            <pre><code class="language-cpp" id="codeModulA">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string namaKomponen, status, keterangan, pilihan;
+    double anggaranRencana, realisasi, selisih, persenPenyimpangan;
+
+    cout &lt;&lt; "=== PEMERIKSAAN ANGGARAN KEGIATAN MAHASISWA ===" &lt;&lt; endl;
+
+    do {
+        cout &lt;&lt; endl &lt;&lt; "--- Komponen Baru ---" &lt;&lt; endl;
+
+        // Input nama komponen (boleh berspasi, tidak boleh kosong)
+        cout &lt;&lt; "Nama komponen          : ";
+        getline(cin, namaKomponen);
+        while (namaKomponen.empty()) {
+            cout &lt;&lt; "Nama komponen tidak boleh kosong." &lt;&lt; endl;
+            cout &lt;&lt; "Nama komponen          : ";
+            getline(cin, namaKomponen);
+        }
+
+        // Input anggaran rencana (harus angka dan lebih dari 0)
+        cout &lt;&lt; "Anggaran rencana (Rp)  : ";
+        cin &gt;&gt; anggaranRencana;
+        while (cin.fail() || anggaranRencana &lt;= 0) {
+            cout &lt;&lt; "Input tidak valid. Anggaran harus berupa angka lebih dari 0." &lt;&lt; endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout &lt;&lt; "Anggaran rencana (Rp)  : ";
+            cin &gt;&gt; anggaranRencana;
+        }
+
+        // Input realisasi (harus angka dan tidak boleh negatif)
+        cout &lt;&lt; "Realisasi (Rp)         : ";
+        cin &gt;&gt; realisasi;
+        while (cin.fail() || realisasi &lt; 0) {
+            cout &lt;&lt; "Input tidak valid. Realisasi harus berupa angka tidak negatif." &lt;&lt; endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout &lt;&lt; "Realisasi (Rp)         : ";
+            cin &gt;&gt; realisasi;
+        }
+
+        // Hitung selisih dan persentase penyimpangan
+        selisih = realisasi - anggaranRencana;
+        persenPenyimpangan = (selisih / anggaranRencana) * 100;
+        keterangan = "-";
+
+        if (realisasi &lt; anggaranRencana) {
+            status = "Hemat";
+        } else if (realisasi == anggaranRencana) {
+            status = "Tepat";
+        } else {
+            status = "Melebihi Anggaran";
+            if (selisih * 100 &lt;= anggaranRencana * 10) {
+                keterangan = "Perlu Evaluasi";
+            } else {
+                keterangan = "Peringatan";
+            }
+        }
+
+        // Tampilkan rincian
+        cout &lt;&lt; endl &lt;&lt; "--- Hasil Pemeriksaan ---" &lt;&lt; endl;
+        cout &lt;&lt; "Komponen               : " &lt;&lt; namaKomponen &lt;&lt; endl;
+        cout &lt;&lt; "Anggaran rencana       : Rp" &lt;&lt; anggaranRencana &lt;&lt; endl;
+        cout &lt;&lt; "Realisasi              : Rp" &lt;&lt; realisasi &lt;&lt; endl;
+        cout &lt;&lt; "Selisih                : Rp" &lt;&lt; selisih &lt;&lt; endl;
+        cout &lt;&lt; "Persentase penyimpangan: " &lt;&lt; persenPenyimpangan &lt;&lt; "%" &lt;&lt; endl;
+        cout &lt;&lt; "Status                 : " &lt;&lt; status &lt;&lt; endl;
+        cout &lt;&lt; "Keterangan             : " &lt;&lt; keterangan &lt;&lt; endl;
+
+        cout &lt;&lt; endl &lt;&lt; "Periksa komponen lain? (y/t): ";
+        cin &gt;&gt; pilihan;
+        while (pilihan != "y" &amp;&amp; pilihan != "Y" &amp;&amp; pilihan != "t" &amp;&amp; pilihan != "T") {
+            cout &lt;&lt; "Pilihan tidak valid. Ketik y atau t: ";
+            cin &gt;&gt; pilihan;
+        }
+        cin.ignore(1000, '\n');
+
+    } while (pilihan == "y" || pilihan == "Y");
+
+    cout &lt;&lt; endl &lt;&lt; "Proses pemeriksaan selesai." &lt;&lt; endl;
+    return 0;
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Tab 4: Pengujian & Screenshots -->
+        <div class="tab-pane fade" id="a-pengujian">
+          <div class="custom-card">
+            <h5 class="fw-bold mb-3">Tabel Pengujian Modul A (8 Skenario)</h5>
+            <div class="table-responsive">
+              <table class="table table-custom table-hover">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Skenario</th>
+                    <th>Data Masukan</th>
+                    <th>Hasil Diharapkan</th>
+                    <th>Hasil Aktual</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Hemat</td><td>Konsumsi, 500000, 400000</td><td>Hemat, -100rb, -20%, `-`</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>2</td><td>Tepat</td><td>Dekorasi, 300000, 300000</td><td>Tepat, 0, 0%, `-`</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>3</td><td>Lebih 5%</td><td>Sound, 400000, 420000</td><td>Melebihi, Perlu Evaluasi</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>4</td><td>Batas 10%</td><td>Transport, 500000, 550000</td><td>Melebihi, Perlu Evaluasi</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>5</td><td>Lebih 50%</td><td>Publikasi, 400000, 600000</td><td>Melebihi, Peringatan</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>6</td><td>Realisasi 0</td><td>Cadangan, 600000, 0</td><td>Hemat, -600rb, -100%</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>7</td><td>Input Salah</td><td>Enter, 0, -5, abc, -100</td><td>Ditolak dan diminta ulang</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>8</td><td>Multi Komponen</td><td>Konsumsi, Sound, x, T</td><td>Looping berjalan rapi</td><td>Sesuai</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h6 class="fw-bold mt-4 mb-3">Tangkapan Layar Pengujian Modul A:</h6>
+            <div class="row g-3">
+              <div class="col-md-6"><img src="Modul-A/gambar/Skenario_1.png" class="img-fluid rounded border shadow-sm" alt="Skenario 1 Modul A"></div>
+              <div class="col-md-6"><img src="Modul-A/gambar/Skenario_2.png" class="img-fluid rounded border shadow-sm" alt="Skenario 2 Modul A"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       4. MODUL B
+       ====================================================================== -->
+  <section class="content-section" id="modul-b">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <div>
+          <div class="section-title"><i class="bi bi-bar-chart text-success"></i> 4. Modul B: Rekapitulasi &amp; Kondisi Akhir</div>
+          <p class="section-subtitle mb-0">Akumulasi total keuangan, pelacakan pos pembengkakan nominal terbesar, dan penentuan kondisi akhir kegiatan.</p>
+        </div>
+        <div class="badge bg-success px-3 py-2 fs-6">Penanggung Jawab: Bryant Anthony Kores Obhetan (322610003)</div>
+      </div>
+
+      <ul class="nav nav-pills subnav-pills mb-4" id="modulBTabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#b-algoritma">Algoritma &amp; Pseudocode</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#b-flowchart">Flowchart</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#b-code">Source Code C++</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#b-pengujian">Pengujian, Trace &amp; Screenshots</button></li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Tab 1: Algoritma & Pseudocode -->
+        <div class="tab-pane fade show active" id="b-algoritma">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="custom-card h-100">
+                <h5 class="fw-bold mb-3">Algoritma Deskriptif Modul B</h5>
+                <ol class="small text-muted ps-3 mb-0" style="line-height: 1.8;">
+                  <li>Mulai.</li>
+                  <li>Inisialisasi akumulator: <code>totalRencana = 0</code>, <code>totalRealisasi = 0</code>, <code>totalPenghematan = 0</code>, <code>totalKelebihan = 0</code>, pencacah kategori = 0, <code>penyimpanganTerbesar = 0</code>, <code>komponenTerbesar = "-"</code>.</li>
+                  <li>Mulai perulangan <code>do...while</code>:
+                    <ul>
+                      <li>Validasi input <code>namaKomponen</code>, <code>anggaranRencana</code>, <code>realisasi</code>.</li>
+                      <li>Akumulasikan total rencana dan total realisasi.</li>
+                      <li>Evaluasi selisih: jika hemat tambah <code>jumlahHemat</code> &amp; penghematan; jika tepat tambah <code>jumlahTepat</code>; jika melebihi tambah <code>jumlahMelebihi</code> &amp; kelebihan.</li>
+                      <li>Jika <code>selisih &gt; penyimpanganTerbesar</code>, update rekor terbesar dan nama pos.</li>
+                      <li>Tanyakan apakah ingin menambah data lagi (y/t).</li>
+                    </ul>
+                  </li>
+                  <li>Hitung persentase penyerapan = <code>(totalRealisasi / totalRencana) * 100</code> (jika totalRencana &gt; 0).</li>
+                  <li>Evaluasi kondisi kegiatan: <em>Hemat</em>, <em>Sesuai Anggaran</em>, atau <em>Melebihi Anggaran</em>.</li>
+                  <li>Cetak laporan rekapitulasi lengkap dan selesai.</li>
+                </ol>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="custom-card h-100">
+                <h5 class="fw-bold mb-3">Pseudocode Modul B</h5>
+                <pre class="bg-dark text-light p-3 rounded small" style="max-height: 400px; overflow-y: auto;"><code>ALGORITMA RekapitulasiAnggaranModulB
+DEKLARASI
+    namaKomponen, pilihan, komponenTerbesar, kondisiKegiatan : string
+    anggaranRencana, realisasi, selisih : real
+    totalRencana, totalRealisasi, totalPenghematan, totalKelebihan : real
+    persentasePenyerapan, penyimpanganTerbesar : real
+    jumlahHemat, jumlahTepat, jumlahMelebihi, totalKomponen : integer
+
+MULAI
+    totalRencana <- 0; totalRealisasi <- 0; totalPenghematan <- 0; totalKelebihan <- 0
+    jumlahHemat <- 0; jumlahTepat <- 0; jumlahMelebihi <- 0; totalKomponen <- 0
+    penyimpanganTerbesar <- 0; komponenTerbesar <- "-"
+
+    ULANGI
+        totalKomponen <- totalKomponen + 1
+        BACA namaKomponen, anggaranRencana, realisasi
+
+        totalRencana <- totalRencana + anggaranRencana
+        totalRealisasi <- totalRealisasi + realisasi
+        selisih <- realisasi - anggaranRencana
+
+        JIKA realisasi < anggaranRencana MAKA
+            jumlahHemat <- jumlahHemat + 1
+            totalPenghematan <- totalPenghematan + (anggaranRencana - realisasi)
+        LAINNYA JIKA realisasi = anggaranRencana MAKA
+            jumlahTepat <- jumlahTepat + 1
+        LAINNYA
+            jumlahMelebihi <- jumlahMelebihi + 1
+            totalKelebihan <- totalKelebihan + selisih
+            JIKA selisih > penyimpanganTerbesar MAKA
+                penyimpanganTerbesar <- selisih
+                komponenTerbesar <- namaKomponen
+            AKHIR JIKA
+        AKHIR JIKA
+
+        BACA pilihan
+    SAMPAI pilihan = "t" ATAU pilihan = "T"
+
+    JIKA totalRencana > 0 MAKA
+        persentasePenyerapan <- (totalRealisasi / totalRencana) * 100
+    LAINNYA
+        persentasePenyerapan <- 0
+    AKHIR JIKA
+
+    JIKA totalRealisasi < totalRencana MAKA
+        kondisiKegiatan <- "Hemat"
+    LAINNYA JIKA totalRealisasi = totalRencana MAKA
+        kondisiKegiatan <- "Sesuai Anggaran"
+    LAINNYA
+        kondisiKegiatan <- "Melebihi Anggaran"
+    AKHIR JIKA
+
+    TAMPILKAN Laporan Rekapitulasi, Statistik, dan Hasil Akhir
+SELESAI</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Flowchart -->
+        <div class="tab-pane fade" id="b-flowchart">
+          <div class="custom-card text-center">
+            <h5 class="fw-bold mb-3">Diagram Alir (Flowchart) Modul B</h5>
+            <div class="mb-3">
+              <a href="Modul-B/gambar/flowchart.svg" target="_blank" class="btn btn-outline-primary btn-sm me-2">
+                <i class="bi bi-arrows-fullscreen"></i> Buka Gambar Vektor SVG
+              </a>
+              <a href="Modul-B/gambar/flowchart_viewer.html" target="_blank" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-download"></i> Penampil Interaktif &amp; Unduh PNG
+              </a>
+            </div>
+            <div class="p-3 bg-light rounded border text-center">
+              <img src="Modul-B/gambar/flowchart.svg" class="img-fluid rounded" alt="Flowchart Modul B SVG" style="max-height: 800px;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Source Code C++ -->
+        <div class="tab-pane fade" id="b-code">
+          <div class="custom-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="fw-bold m-0"><i class="bi bi-file-earmark-code text-success me-2"></i>Source Code C++ (Modul B - modul_b.cpp)</h5>
+              <button class="btn btn-outline-secondary btn-sm" onclick="copyCode('codeModulB')"><i class="bi bi-clipboard"></i> Salin Kode</button>
+            </div>
+            <pre><code class="language-cpp" id="codeModulB">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;iomanip&gt;
+
+using namespace std;
+
+int main() {
+    string namaKomponen, pilihan;
+    double anggaranRencana = 0.0, realisasi = 0.0, selisih = 0.0;
+
+    double totalRencana = 0.0, totalRealisasi = 0.0;
+    double totalPenghematan = 0.0, totalKelebihan = 0.0, persentasePenyerapan = 0.0;
+
+    int jumlahHemat = 0, jumlahTepat = 0, jumlahMelebihi = 0, totalKomponen = 0;
+    double penyimpanganTerbesar = 0.0;
+    string komponenTerbesar = "-", kondisiKegiatan = "-";
+
+    cout &lt;&lt; "=== REKAPITULASI ANGGARAN KEGIATAN MAHASISWA (MODUL B) ===" &lt;&lt; endl;
+
+    do {
+        cout &lt;&lt; endl &lt;&lt; "--- Input Komponen Anggaran Ke-" &lt;&lt; (totalKomponen + 1) &lt;&lt; " ---" &lt;&lt; endl;
+
+        cout &lt;&lt; "Nama komponen          : ";
+        getline(cin, namaKomponen);
+        while (namaKomponen.empty()) {
+            cout &lt;&lt; "Input tidak valid. Nama komponen tidak boleh kosong." &lt;&lt; endl;
+            cout &lt;&lt; "Nama komponen          : ";
+            getline(cin, namaKomponen);
+        }
+
+        cout &lt;&lt; "Anggaran rencana (Rp)  : ";
+        cin &gt;&gt; anggaranRencana;
+        while (cin.fail() || anggaranRencana &lt;= 0) {
+            cout &lt;&lt; "Input tidak valid. Anggaran harus berupa angka lebih dari 0." &lt;&lt; endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout &lt;&lt; "Anggaran rencana (Rp)  : ";
+            cin &gt;&gt; anggaranRencana;
+        }
+
+        cout &lt;&lt; "Realisasi (Rp)         : ";
+        cin &gt;&gt; realisasi;
+        while (cin.fail() || realisasi &lt; 0) {
+            cout &lt;&lt; "Input tidak valid. Realisasi harus berupa angka tidak negatif." &lt;&lt; endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout &lt;&lt; "Realisasi (Rp)         : ";
+            cin &gt;&gt; realisasi;
+        }
+
+        totalKomponen++;
+        totalRencana += anggaranRencana;
+        totalRealisasi += realisasi;
+        selisih = realisasi - anggaranRencana;
+
+        if (realisasi &lt; anggaranRencana) {
+            jumlahHemat++;
+            totalPenghematan += (anggaranRencana - realisasi);
+        } else if (realisasi == anggaranRencana) {
+            jumlahTepat++;
+        } else {
+            jumlahMelebihi++;
+            totalKelebihan += selisih;
+            if (selisih &gt; penyimpanganTerbesar) {
+                penyimpanganTerbesar = selisih;
+                komponenTerbesar = namaKomponen;
+            }
+        }
+
+        cout &lt;&lt; "&gt;&gt; Data komponen berhasil dicatat." &lt;&lt; endl;
+        cout &lt;&lt; endl &lt;&lt; "Input data komponen lain? (y/t): ";
+        cin &gt;&gt; pilihan;
+        while (pilihan != "y" &amp;&amp; pilihan != "Y" &amp;&amp; pilihan != "t" &amp;&amp; pilihan != "T") {
+            cout &lt;&lt; "Pilihan tidak valid. Silakan ketik y atau t: ";
+            cin &gt;&gt; pilihan;
+        }
+        cin.ignore(1000, '\n');
+
+    } while (pilihan == "y" || pilihan == "Y");
+
+    if (totalRencana &gt; 0) {
+        persentasePenyerapan = (totalRealisasi / totalRencana) * 100.0;
+    } else {
+        persentasePenyerapan = 0.0;
+    }
+
+    if (totalRealisasi &lt; totalRencana) {
+        kondisiKegiatan = "Hemat";
+    } else if (totalRealisasi == totalRencana) {
+        kondisiKegiatan = "Sesuai Anggaran";
+    } else {
+        kondisiKegiatan = "Melebihi Anggaran";
+    }
+
+    cout &lt;&lt; endl &lt;&lt; "=== LAPORAN REKAPITULASI ANGGARAN ===" &lt;&lt; endl;
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    cout &lt;&lt; "Total Komponen Diproses       : " &lt;&lt; totalKomponen &lt;&lt; endl;
+    cout &lt;&lt; "Total Rencana Anggaran        : Rp" &lt;&lt; totalRencana &lt;&lt; endl;
+    cout &lt;&lt; "Total Realisasi Pengeluaran   : Rp" &lt;&lt; totalRealisasi &lt;&lt; endl;
+    cout &lt;&lt; "Total Penghematan             : Rp" &lt;&lt; totalPenghematan &lt;&lt; endl;
+    cout &lt;&lt; "Total Kelebihan Pengeluaran   : Rp" &lt;&lt; totalKelebihan &lt;&lt; endl;
+    cout &lt;&lt; "Persentase Penyerapan         : " &lt;&lt; persentasePenyerapan &lt;&lt; "%" &lt;&lt; endl;
+    cout &lt;&lt; "Komponen Penyimpangan Terbesar: " &lt;&lt; komponenTerbesar &lt;&lt; endl;
+    cout &lt;&lt; "Kondisi Anggaran Keseluruhan  : " &lt;&lt; kondisiKegiatan &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Tab 4: Pengujian, Trace & Screenshots -->
+        <div class="tab-pane fade" id="b-pengujian">
+          <div class="custom-card">
+            <h5 class="fw-bold mb-3">Tabel Pengujian Modul B (8 Skenario)</h5>
+            <div class="table-responsive">
+              <table class="table table-custom table-hover">
+                <thead>
+                  <tr><th>No</th><th>Skenario</th><th>Data Masukan</th><th>Hasil Rekapitulasi</th><th>Kondisi Akhir</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Campuran</td><td>Konsumsi (500k/400k), Dekor (300k/300k), Pub (200k/350k)</td><td>Rencana: 1jt, Real: 1.05jt, Penyerapan: 105%</td><td>Melebihi</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>2</td><td>Semua Hemat</td><td>Transport (800k/600k), Alat (1.2jt/1jt)</td><td>Rencana: 2jt, Real: 1.6jt, Hemat: 400k</td><td>Hemat</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>3</td><td>Semua Tepat</td><td>Honor (1.5jt/1.5jt), Zoom (250k/250k)</td><td>Rencana: 1.75jt, Real: 1.75jt, Penyerapan: 100%</td><td>Sesuai Anggaran</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>4</td><td>Kompetisi Peak</td><td>Konsumsi (+100k), Hadiah (+400k), Dok (+200k)</td><td>Penyimpangan Terbesar: Hadiah (+400k)</td><td>Melebihi</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>5</td><td>Realisasi Nol</td><td>Cadangan (1jt/0)</td><td>Penghematan: 1jt, Penyerapan: 0%</td><td>Hemat</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>6</td><td>Batas 1 Data</td><td>Banner (150k/160k)</td><td>Total Komponen: 1, Lebih: 10k</td><td>Melebihi</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>7</td><td>Input Tidak Valid</td><td>Empty, huruf, negatif, pilihan 'x'</td><td>Ditolak ramah, dipulihkan dengan cin.clear()</td><td>Normal</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                  <tr><td>8</td><td>Impas Agregat</td><td>Panggung (600k/500k), Sound (400k/500k)</td><td>Rencana: 1jt, Realisasi: 1jt (Impas)</td><td>Sesuai Anggaran</td><td><span class="badge bg-success">Berhasil</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Trace Table Perulangan -->
+            <h6 class="fw-bold mt-4 mb-2"><i class="bi bi-arrow-repeat text-primary me-2"></i>Trace Table Perulangan (Modul B):</h6>
+            <div class="table-responsive">
+              <table class="table table-custom table-sm small">
+                <thead>
+                  <tr><th>Iterasi</th><th>Komponen</th><th>Rencana</th><th>Realisasi</th><th>Total Rencana</th><th>Total Realisasi</th><th>Total Hemat</th><th>Total Lebih</th><th>Pilihan</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Konsumsi</td><td>500.000</td><td>400.000</td><td>500.000</td><td>400.000</td><td>100.000</td><td>0</td><td>'y' (Lanjut)</td></tr>
+                  <tr><td>2</td><td>Dekorasi</td><td>300.000</td><td>300.000</td><td>800.000</td><td>700.000</td><td>100.000</td><td>0</td><td>'y' (Lanjut)</td></tr>
+                  <tr><td>3</td><td>Publikasi</td><td>200.000</td><td>350.000</td><td>1.000.000</td><td>1.050.000</td><td>100.000</td><td>150.000</td><td>'t' (Berhenti)</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Real Screenshots -->
+            <h6 class="fw-bold mt-4 mb-3"><i class="bi bi-camera text-info me-2"></i>Tangkapan Layar Eksekusi Konsol Terminal (Modul B):</h6>
+            <div class="row g-3">
+              <div class="col-md-4 text-center">
+                <img src="Modul-B/gambar/Skenario_1.jpg.png" class="img-fluid rounded border shadow-sm" alt="Komponen 1 Modul B">
+                <div class="small text-muted mt-2">Bagian 1: Input Komponen 1 (Hemat)</div>
+              </div>
+              <div class="col-md-4 text-center">
+                <img src="Modul-B/gambar/Skenario_2.jpg.png" class="img-fluid rounded border shadow-sm" alt="Komponen 2 Modul B">
+                <div class="small text-muted mt-2">Bagian 2: Input Komponen 2 (Tepat)</div>
+              </div>
+              <div class="col-md-4 text-center">
+                <img src="Modul-B/gambar/Skenario_3.jpg.png" class="img-fluid rounded border shadow-sm" alt="Laporan Rekapitulasi Modul B">
+                <div class="small text-muted mt-2">Bagian 3: Komponen 3 &amp; Laporan Akhir</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       5. PROGRAM TERINTEGRASI
+       ====================================================================== -->
+  <section class="content-section bg-body-tertiary" id="integrasi">
+    <div class="container">
+      <div class="section-title"><i class="bi bi-diagram-3 text-info"></i> 5. Program Terintegrasi</div>
+      <p class="section-subtitle">Penggabungan utuh logika Modul A dan Modul B ke dalam satu program eksekusi mandiri tanpa array.</p>
+
+      <div class="custom-card mb-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-gear-wide-connected text-primary me-2"></i>Arsitektur Single-Loop Terintegrasi</h5>
+        <p class="text-muted small">
+          Kedua modul digabungkan secara harmonis: pada setiap iterasi <code>do...while</code>, sistem menerima data komponen, Modul A memproses dan mencetak evaluasi instan pos tersebut, lalu Modul B langsung menyerap datanya ke variabel akumulator. Ketika pengguna selesai (<code>'t'</code>), Modul B mencetak laporan rekapitulasi agregat dan menetapkan status akhir kegiatan.
+        </p>
+
+        <div class="d-flex justify-content-between align-items-center mb-2 mt-4">
+          <h6 class="fw-bold m-0 text-primary">Source Code Final (program_terintegrasi.cpp):</h6>
+          <button class="btn btn-outline-secondary btn-sm" onclick="copyCode('codeIntegrasi')"><i class="bi bi-clipboard"></i> Salin Kode</button>
+        </div>
+        <pre><code class="language-cpp" id="codeIntegrasi">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;iomanip&gt;
+
+using namespace std;
+
+int main() {
+    string namaKomponen, status, keterangan, pilihan;
+    double anggaranRencana = 0.0, realisasi = 0.0, selisih = 0.0, persenPenyimpangan = 0.0;
+
+    int totalKomponen = 0, jumlahHemat = 0, jumlahTepat = 0, jumlahMelebihi = 0;
+    double totalRencana = 0.0, totalRealisasi = 0.0, totalPenghematan = 0.0, totalKelebihan = 0.0;
+    double persentasePenyerapan = 0.0, penyimpanganTerbesar = 0.0;
+    string komponenTerbesar = "-", kondisiKegiatan = "-";
+
+    cout &lt;&lt; "======================================================================" &lt;&lt; endl;
+    cout &lt;&lt; "      SISTEM EVALUASI &amp; REKAPITULASI ANGGARAN KEGIATAN MAHASISWA      " &lt;&lt; endl;
+    cout &lt;&lt; "                      (PROGRAM TERINTEGRASI)                          " &lt;&lt; endl;
+    cout &lt;&lt; "======================================================================" &lt;&lt; endl;
+
+    do {
+        totalKomponen++;
+        cout &lt;&lt; endl &lt;&lt; "--------------------------------------------------" &lt;&lt; endl;
+        cout &lt;&lt; " INPUT KOMPONEN ANGGARAN KE-" &lt;&lt; totalKomponen &lt;&lt; endl;
+        cout &lt;&lt; "--------------------------------------------------" &lt;&lt; endl;
+
+        // Validasi Nama Komponen
+        cout &lt;&lt; "Nama komponen               : ";
+        getline(cin, namaKomponen);
+        while (namaKomponen.empty()) {
+            cout &lt;&lt; "[PERINGATAN] Nama komponen tidak boleh kosong." &lt;&lt; endl;
+            cout &lt;&lt; "Nama komponen               : ";
+            getline(cin, namaKomponen);
+        }
+
+        // Validasi Anggaran Rencana (> 0)
+        cout &lt;&lt; "Anggaran rencana (Rp)       : ";
+        cin &gt;&gt; anggaranRencana;
+        while (cin.fail() || anggaranRencana &lt;= 0) {
+            cout &lt;&lt; "[PERINGATAN] Input tidak valid. Anggaran harus berupa angka lebih dari 0." &lt;&lt; endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout &lt;&lt; "Anggaran rencana (Rp)       : ";
+            cin &gt;&gt; anggaranRencana;
+        }
+
+        // Validasi Realisasi (>= 0)
+        cout &lt;&lt; "Realisasi pengeluaran (Rp)  : ";
+        cin &gt;&gt; realisasi;
+        while (cin.fail() || realisasi &lt; 0) {
+            cout &lt;&lt; "[PERINGATAN] Input tidak valid. Realisasi harus angka dan tidak boleh negatif." &lt;&lt; endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout &lt;&lt; "Realisasi pengeluaran (Rp)  : ";
+            cin &gt;&gt; realisasi;
+        }
+
+        // LOGIKA MODUL A: EVALUASI STATUS KOMPONEN
+        selisih = realisasi - anggaranRencana;
+        persenPenyimpangan = (selisih / anggaranRencana) * 100.0;
+        keterangan = "-";
+
+        if (realisasi &lt; anggaranRencana) {
+            status = "Hemat";
+        } else if (realisasi == anggaranRencana) {
+            status = "Tepat";
+        } else {
+            status = "Melebihi Anggaran";
+            if (selisih * 100.0 &lt;= anggaranRencana * 10.0) {
+                keterangan = "Perlu Evaluasi";
+            } else {
+                keterangan = "Peringatan";
+            }
+        }
+
+        // Tampilkan Output Rincian Modul A
+        cout &lt;&lt; endl &lt;&lt; "&gt;&gt;&gt; HASIL PEMERIKSAAN KOMPONEN (MODUL A) &lt;&lt;&lt;" &lt;&lt; endl;
+        cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+        cout &lt;&lt; "Komponen                    : " &lt;&lt; namaKomponen &lt;&lt; endl;
+        cout &lt;&lt; "Anggaran Rencana            : Rp" &lt;&lt; anggaranRencana &lt;&lt; endl;
+        cout &lt;&lt; "Realisasi                   : Rp" &lt;&lt; realisasi &lt;&lt; endl;
+        cout &lt;&lt; "Selisih                     : Rp" &lt;&lt; selisih &lt;&lt; endl;
+        cout &lt;&lt; "Persentase Penyimpangan     : " &lt;&lt; persenPenyimpangan &lt;&lt; "%" &lt;&lt; endl;
+        cout &lt;&lt; "Status                      : " &lt;&lt; status &lt;&lt; endl;
+        cout &lt;&lt; "Keterangan                  : " &lt;&lt; keterangan &lt;&lt; endl;
+
+        // LOGIKA MODUL B: AKUMULASI REKAPITULASI
+        totalRencana += anggaranRencana;
+        totalRealisasi += realisasi;
+
+        if (realisasi &lt; anggaranRencana) {
+            jumlahHemat++;
+            totalPenghematan += (anggaranRencana - realisasi);
+        } else if (realisasi == anggaranRencana) {
+            jumlahTepat++;
+        } else {
+            jumlahMelebihi++;
+            totalKelebihan += selisih;
+            if (selisih &gt; penyimpanganTerbesar) {
+                penyimpanganTerbesar = selisih;
+                komponenTerbesar = namaKomponen;
+            }
+        }
+
+        cout &lt;&lt; endl &lt;&lt; "Periksa/tambah komponen lain? (y/t): ";
+        cin &gt;&gt; pilihan;
+        while (pilihan != "y" &amp;&amp; pilihan != "Y" &amp;&amp; pilihan != "t" &amp;&amp; pilihan != "T") {
+            cout &lt;&lt; "[PERINGATAN] Pilihan tidak valid. Silakan ketik y atau t: ";
+            cin &gt;&gt; pilihan;
+        }
+        cin.ignore(1000, '\n');
+
+    } while (pilihan == "y" || pilihan == "Y");
+
+    // EVALUASI AKHIR MODUL B
+    if (totalRencana &gt; 0) {
+        persentasePenyerapan = (totalRealisasi / totalRencana) * 100.0;
+    } else {
+        persentasePenyerapan = 0.0;
+    }
+
+    if (totalRealisasi &lt; totalRencana) {
+        kondisiKegiatan = "Hemat";
+    } else if (totalRealisasi == totalRencana) {
+        kondisiKegiatan = "Sesuai Anggaran";
+    } else {
+        kondisiKegiatan = "Melebihi Anggaran";
+    }
+
+    // TAMPILAN LAPORAN REKAPITULASI AKHIR (OUTPUT MODUL B)
+    cout &lt;&lt; endl;
+    cout &lt;&lt; "======================================================================" &lt;&lt; endl;
+    cout &lt;&lt; "              LAPORAN REKAPITULASI AKHIR KEGIATAN MAHASISWA           " &lt;&lt; endl;
+    cout &lt;&lt; "======================================================================" &lt;&lt; endl;
+    cout &lt;&lt; "Total Komponen Terperiksa   : " &lt;&lt; totalKomponen &lt;&lt; endl;
+    cout &lt;&lt; "Total Rencana Anggaran      : Rp" &lt;&lt; totalRencana &lt;&lt; endl;
+    cout &lt;&lt; "Total Realisasi Pengeluaran : Rp" &lt;&lt; totalRealisasi &lt;&lt; endl;
+    cout &lt;&lt; "Total Penghematan           : Rp" &lt;&lt; totalPenghematan &lt;&lt; endl;
+    cout &lt;&lt; "Total Kelebihan Pengeluaran : Rp" &lt;&lt; totalKelebihan &lt;&lt; endl;
+    cout &lt;&lt; "Persentase Penyerapan       : " &lt;&lt; persentasePenyerapan &lt;&lt; "%" &lt;&lt; endl;
+    cout &lt;&lt; "--- Statistik Jumlah Komponen ---" &lt;&lt; endl;
+    cout &lt;&lt; "Komponen Hemat              : " &lt;&lt; jumlahHemat &lt;&lt; endl;
+    cout &lt;&lt; "Komponen Tepat Sasaran      : " &lt;&lt; jumlahTepat &lt;&lt; endl;
+    cout &lt;&lt; "Komponen Melebihi Anggaran  : " &lt;&lt; jumlahMelebihi &lt;&lt; endl;
+    cout &lt;&lt; "--- Analisis Penyimpangan &amp; Hasil Akhir ---" &lt;&lt; endl;
+    cout &lt;&lt; "Komponen Penyimpangan Terbesar : " &lt;&lt; komponenTerbesar &lt;&lt; endl;
+    cout &lt;&lt; "KONDISI KEGIATAN KESELURUHAN   : " &lt;&lt; kondisiKegiatan &lt;&lt; endl;
+    cout &lt;&lt; "======================================================================" &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+      </div>
+
+      <!-- Bug Log -->
+      <div class="custom-card">
+        <h5 class="fw-bold mb-3"><i class="bi bi-bug text-danger me-2"></i>Daftar Kesalahan &amp; Solusi Perbaikan (Bug Log)</h5>
+        <div class="accordion" id="bugAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bug1">
+                <strong>1. Buffer Input Terlewati pada `getline()`</strong>
+              </button>
+            </h2>
+            <div id="bug1" class="accordion-collapse collapse" data-bs-parent="#bugAccordion">
+              <div class="accordion-body small text-muted">
+                <strong>Masalah:</strong> Nama komponen pada iterasi kedua langsung terlewati dan dianggap string kosong.<br>
+                <strong>Penyebab:</strong> Karakter <code>\n</code> tersisa dari <code>cin &gt;&gt; pilihan</code>.<br>
+                <strong>Solusi:</strong> Menambahkan <code>cin.ignore(1000, '\n')</code> setelah membaca pilihan perulangan.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bug2">
+                <strong>2. Infinite Loop Saat Input Karakter Huruf pada Angka</strong>
+              </button>
+            </h2>
+            <div id="bug2" class="accordion-collapse collapse" data-bs-parent="#bugAccordion">
+              <div class="accordion-body small text-muted">
+                <strong>Masalah:</strong> Terminal mencetak error tiada henti jika dimasukkan huruf pada anggaran/realisasi.<br>
+                <strong>Penyebab:</strong> Flag <code>cin.fail()</code> aktif dan karakter salah tidak terbuang.<br>
+                <strong>Solusi:</strong> Menggunakan <code>cin.clear()</code> untuk reset flag error dan <code>cin.ignore(1000, '\n')</code> untuk membersihkan buffer.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bug3">
+                <strong>3. Floating Point Precision pada Batas Toleransi 10%</strong>
+              </button>
+            </h2>
+            <div id="bug3" class="accordion-collapse collapse" data-bs-parent="#bugAccordion">
+              <div class="accordion-body small text-muted">
+                <strong>Masalah:</strong> Kelebihan tepat 10% terkadang terbaca sebagai &gt; 10% (Peringatan) akibat galat pembagian desimal biner.<br>
+                <strong>Solusi:</strong> Mengubah formula pembagian menjadi perkalian silang: <code>selisih * 100.0 &lt;= anggaranRencana * 10.0</code>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       LIVE INTERACTIVE WEB SIMULATOR
+       ====================================================================== -->
+  <section class="content-section" id="simulator">
+    <div class="container">
+      <div class="section-title"><i class="bi bi-play-circle text-warning"></i> Simulator Web Interaktif</div>
+      <p class="section-subtitle">Uji coba langsung logika algoritma C++ secara interaktif di peramban web ini.</p>
+
+      <div class="sim-box">
+        <div class="row g-4">
+          <!-- Form Input -->
+          <div class="col-lg-5">
+            <h5 class="fw-bold text-info mb-3"><i class="bi bi-input-cursor me-2"></i>Input Komponen Anggaran</h5>
+            
+            <div class="mb-3">
+              <label class="form-label small text-light text-opacity-75">Nama Komponen</label>
+              <input type="text" id="simNama" class="form-control bg-dark text-light border-secondary" placeholder="Contoh: Konsumsi Acara">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small text-light text-opacity-75">Anggaran Rencana (Rp)</label>
+              <input type="number" id="simRencana" class="form-control bg-dark text-light border-secondary" placeholder="Contoh: 500000">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small text-light text-opacity-75">Realisasi Belanja (Rp)</label>
+              <input type="number" id="simRealisasi" class="form-control bg-dark text-light border-secondary" placeholder="Contoh: 400000">
+            </div>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-primary flex-grow-1" onclick="simTambahKomponen()">
+                <i class="bi bi-plus-lg me-1"></i> Tambah &amp; Periksa
+              </button>
+              <button class="btn btn-outline-danger" onclick="simReset()">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset
+              </button>
+            </div>
+
+            <div id="simAlert" class="alert alert-danger mt-3 py-2 small d-none"></div>
+
+            <div class="mt-4 p-3 rounded bg-black bg-opacity-30 border border-secondary border-opacity-50">
+              <h6 class="small text-uppercase tracking-wider text-muted mb-2">Preset Data Uji Cepat:</h6>
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-light" onclick="simPreset(1)">Skenario 1 (Campuran)</button>
+                <button class="btn btn-sm btn-outline-light" onclick="simPreset(2)">Skenario 2 (Hemat)</button>
+                <button class="btn btn-sm btn-outline-light" onclick="simPreset(3)">Skenario 3 (Tepat)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Output & Rekapitulasi -->
+          <div class="col-lg-7">
+            <h5 class="fw-bold text-success mb-3"><i class="bi bi-terminal me-2"></i>Hasil Evaluasi &amp; Rekapitulasi Terpadu</h5>
+            
+            <!-- Pos Terakhir -->
+            <div class="p-3 mb-3 rounded bg-black bg-opacity-40 border border-secondary border-opacity-50">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small text-uppercase text-info fw-bold">Evaluasi Pos Terakhir (Modul A):</span>
+                <span id="simBadgeStatus" class="badge bg-secondary">-</span>
+              </div>
+              <div class="row g-2 small">
+                <div class="col-6">Pos: <span id="simOutNama" class="fw-bold text-light">-</span></div>
+                <div class="col-6">Selisih: <span id="simOutSelisih" class="fw-bold">-</span></div>
+                <div class="col-6">Persen Deviasi: <span id="simOutPersen" class="fw-bold">-</span></div>
+                <div class="col-6">Keterangan: <span id="simOutKet" class="badge bg-dark">-</span></div>
+              </div>
+            </div>
+
+            <!-- Tabel Agregat Modul B -->
+            <div class="table-responsive small">
+              <table class="table table-dark table-sm table-bordered m-0 border-secondary">
+                <tbody>
+                  <tr><td class="text-muted">Total Pos Terproses</td><td class="fw-bold text-end" id="simTotPos">0</td></tr>
+                  <tr><td class="text-muted">Total Rencana Anggaran</td><td class="fw-bold text-end text-primary" id="simTotRencana">Rp0.00</td></tr>
+                  <tr><td class="text-muted">Total Realisasi Belanja</td><td class="fw-bold text-end text-warning" id="simTotRealisasi">Rp0.00</td></tr>
+                  <tr><td class="text-muted">Total Dana Penghematan</td><td class="fw-bold text-end text-success" id="simTotHemat">Rp0.00</td></tr>
+                  <tr><td class="text-muted">Total Kelebihan Pengeluaran</td><td class="fw-bold text-end text-danger" id="simTotLebih">Rp0.00</td></tr>
+                  <tr><td class="text-muted">Rasio Penyerapan Anggaran</td><td class="fw-bold text-end" id="simTotPenyerapan">0.00%</td></tr>
+                  <tr><td class="text-muted">Statistik Komponen</td><td class="text-end" id="simTotStat">Hemat: 0 | Tepat: 0 | Lebih: 0</td></tr>
+                  <tr><td class="text-muted">Pembengkakan Terbesar</td><td class="fw-bold text-end text-danger" id="simPeak">-</td></tr>
+                  <tr class="table-active"><td class="fw-bold text-uppercase">Kondisi Akhir Kegiatan</td><td class="fw-bold text-end fs-6" id="simKondisi">-</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       6. REFLEKSI
+       ====================================================================== -->
+  <section class="content-section bg-body-tertiary" id="refleksi">
+    <div class="container">
+      <div class="section-title"><i class="bi bi-chat-quote text-success"></i> 6. Refleksi Proyek</div>
+      <p class="section-subtitle">Evaluasi pembagian peran kelompok, pembelajaran teknis, dan rencana pengembangan sistem.</p>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="custom-card h-100">
+            <h5 class="fw-bold mb-3"><i class="bi bi-person-check text-primary me-2"></i>Pembagian Tugas &amp; Kontribusi</h5>
+            <div class="table-responsive">
+              <table class="table table-custom table-sm small">
+                <thead>
+                  <tr><th>Anggota</th><th>Tanggung Jawab Utama</th><th>Peran Integrasi</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Nadin Arifa S.</strong><br>(322610009)</td>
+                    <td>Modul A: Logika per komponen, toleransi 10%, validasi input.</td>
+                    <td>Pemeriksaan silang, sinkronisasi variabel, validasi IPO.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bryant Anthony K. O.</strong><br>(322610003)</td>
+                    <td>Modul B: Variabel akumulator, pelacakan puncak tanpa array, kondisi akhir.</td>
+                    <td>Penggabungan perulangan, trace table, dan dokumentasi repo.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="custom-card h-100">
+            <h5 class="fw-bold mb-3"><i class="bi bi-mortarboard text-warning me-2"></i>Bagian Tersulit &amp; Pembelajaran</h5>
+            <ul class="small text-muted ps-3 mb-0" style="line-height: 1.8;">
+              <li><strong>Pembersihan Buffer Input:</strong> Mengatasi karakter <code>\n</code> yang tertinggal pada stream <code>cin</code> saat perulangan menggunakan <code>cin.ignore()</code>.</li>
+              <li><strong>Pelacakan Maksimum Bebas Array:</strong> Menyelesaikan penentuan pos pembengkakan terbesar secara langsung (*on-the-fly*) dengan membandingkan nilai selisih terhadap rekor puncak.</li>
+              <li><strong>Pemrograman Defensif:</strong> Mengimplementasikan validasi <code>cin.fail()</code> dan penolakan nilai negatif untuk menjaga stabilitas program konsol.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="custom-card">
+            <h5 class="fw-bold mb-3"><i class="bi bi-rocket-takeoff text-info me-2"></i>Rencana Pengembangan untuk Ujian Akhir Semester (UAS)</h5>
+            <div class="row g-3 small text-muted">
+              <div class="col-md-3">
+                <div class="p-3 border rounded h-100">
+                  <div class="fw-bold text-primary mb-1"><i class="bi bi-box me-1"></i> Struct &amp; Array</div>
+                  Menyimpan riwayat seluruh komponen dalam array of struct untuk fitur pencarian dan pengurutan data.
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="p-3 border rounded h-100">
+                  <div class="fw-bold text-success mb-1"><i class="bi bi-diagram-2 me-1"></i> Modularisasi Fungsi</div>
+                  Memecah kode ke dalam fungsi mandiri dengan parameter passing <em>by value</em> dan <em>by reference</em>.
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="p-3 border rounded h-100">
+                  <div class="fw-bold text-warning mb-1"><i class="bi bi-file-earmark-arrow-down me-1"></i> File I/O Persistensi</div>
+                  Menyimpan dan memuat data anggaran dari file teks eksternal (format <code>.txt</code> / <code>.csv</code>).
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="p-3 border rounded h-100">
+                  <div class="fw-bold text-info mb-1"><i class="bi bi-window me-1"></i> Antarmuka GUI</div>
+                  Membangun antarmuka berbasis GUI atau dashboard web terhubung untuk kemudahan bendahara kegiatan.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       7. PERNYATAAN PENGGUNAAN AI
+       ====================================================================== -->
+  <section class="content-section" id="penggunaan-ai">
+    <div class="container">
+      <div class="section-title"><i class="bi bi-robot text-primary"></i> 7. Pernyataan Penggunaan AI</div>
+      <p class="section-subtitle">Kepatuhan akademik terhadap Bagian M panduan proyek UTS mengenai transparansi penggunaan kecerdasan buatan.</p>
+
+      <div class="custom-card">
+        <div class="row g-4 small text-muted">
+          <div class="col-md-6">
+            <h6 class="fw-bold text-dark dark-text-light mb-2">1. Identitas &amp; Tujuan Alat AI</h6>
+            <p>
+              <strong>Nama Alat:</strong> Google Gemini / Antigravity Assistant (Google DeepMind).<br>
+              <strong>Tujuan:</strong> Membantu memahami pesan galat kompiler <code>g++</code> di Windows, mempelajari sintaks pembersihan buffer C++ (<code>cin.clear()</code> dan <code>cin.ignore()</code>), serta mengecek potensi galat pembagian nol.
+            </p>
+
+            <h6 class="fw-bold text-dark dark-text-light mt-3 mb-2">2. Contoh Prompt Utama yang Diajukan</h6>
+            <ul class="ps-3 mb-0">
+              <li><em>"Bagaimana cara mengatasi error g++ not recognized di terminal Windows?"</em></li>
+              <li><em>"Mengapa getline terlewati setelah membaca cin angka di dalam loop do-while?"</em></li>
+              <li><em>"Bagaimana merancang pelacakan selisih terbesar tanpa menggunakan array di C++?"</em></li>
+            </ul>
+          </div>
+
+          <div class="col-md-6">
+            <h6 class="fw-bold text-dark dark-text-light mb-2">3. Bagian Hasil AI yang Digunakan</h6>
+            <p>
+              Panduan instalasi paket kompiler MinGW-w64 via winget, snippet pembersihan buffer <code>cin.ignore(1000, '\n')</code>, dan kerangka penyusunan trace table.
+            </p>
+
+            <h6 class="fw-bold text-dark dark-text-light mt-3 mb-2">4. Verifikasi &amp; Perubahan oleh Mahasiswa</h6>
+            <p>
+              Mahasiswa menolak draf awal yang menggunakan <code>std::vector</code> dan <code>struct</code>, lalu merefaktor ulang secara mandiri menjadi pemrograman terstruktur murni sesuai silabus semester 1.
+            </p>
+          </div>
+
+          <div class="col-12 mt-3 pt-3 border-top">
+            <div class="alert alert-info py-2 px-3 small m-0 d-flex align-items-center gap-2">
+              <i class="bi bi-check-circle-fill text-primary fs-5"></i>
+              <div>
+                <strong>Pernyataan Akuntabilitas:</strong> Seluruh anggota kelompok memahami sepenuhnya algoritma, pseudocode, flowchart, dan setiap baris source code, serta siap mempertanggungjawabkannya dan melakukan modifikasi langsung pada verifikasi individual dosen.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="bg-dark text-light py-4 border-top border-secondary border-opacity-25 mt-auto">
+    <div class="container text-center small text-muted">
+      <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+        <i class="bi bi-terminal-fill text-info"></i>
+        <span class="text-light fw-bold">Proyek UTS Algoritma &amp; Pengantar Pemrograman (SSI1144)</span>
+      </div>
+      <div>Program Studi Sistem Informasi &bull; Fakultas Teknologi dan Desain &bull; Universitas Ma Chung &bull; 2026</div>
+      <div class="mt-2">
+        <a href="https://github.com/nadinarifa/uts_alpro" target="_blank" class="text-info text-decoration-none">
+          <i class="bi bi-github me-1"></i> Repository GitHub: nadinarifa/uts_alpro
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Prism JS for C++ Code Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+
+  <script>
+    // Initialize Mermaid
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+
+    // Copy Code Helper
+    function copyCode(elementId) {
+      const code = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert("Kode berhasil disalin ke clipboard!");
+      });
+    }
+
+    // Theme Toggle (Dark / Light)
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-bs-theme', currentTheme);
+    updateThemeIcon();
+
+    themeBtn.addEventListener('click', () => {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-bs-theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
+      updateThemeIcon();
+    });
+
+    function updateThemeIcon() {
+      if (currentTheme === 'dark') {
+        themeIcon.className = 'bi bi-sun-fill text-warning';
+      } else {
+        themeIcon.className = 'bi bi-moon-stars-fill text-light';
+      }
+    }
+
+    // ==========================================
+    // LIVE SIMULATOR JAVASCRIPT LOGIC
+    // ==========================================
+    let simState = {
+      totalKomponen: 0,
+      totalRencana: 0,
+      totalRealisasi: 0,
+      totalPenghematan: 0,
+      totalKelebihan: 0,
+      jumlahHemat: 0,
+      jumlahTepat: 0,
+      jumlahMelebihi: 0,
+      penyimpanganTerbesar: 0,
+      komponenTerbesar: "-"
+    };
+
+    function simTambahKomponen() {
+      const nama = document.getElementById('simNama').value.trim();
+      const rencana = parseFloat(document.getElementById('simRencana').value);
+      const realisasi = parseFloat(document.getElementById('simRealisasi').value);
+      const alertBox = document.getElementById('simAlert');
+
+      alertBox.classList.add('d-none');
+
+      // Validasi
+      if (!nama) {
+        alertBox.innerText = "Peringatan: Nama komponen tidak boleh kosong.";
+        alertBox.classList.remove('d-none');
+        return;
+      }
+      if (isNaN(rencana) || rencana <= 0) {
+        alertBox.innerText = "Peringatan: Anggaran rencana harus berupa angka lebih dari 0.";
+        alertBox.classList.remove('d-none');
+        return;
+      }
+      if (isNaN(realisasi) || realisasi < 0) {
+        alertBox.innerText = "Peringatan: Realisasi harus berupa angka tidak negatif.";
+        alertBox.classList.remove('d-none');
+        return;
+      }
+
+      // Modul A Logic
+      const selisih = realisasi - rencana;
+      const persen = (selisih / rencana) * 100;
+      let status = "";
+      let ket = "-";
+      let badgeColor = "bg-secondary";
+
+      if (realisasi < rencana) {
+        status = "Hemat";
+        badgeColor = "bg-success";
+      } else if (realisasi === rencana) {
+        status = "Tepat";
+        badgeColor = "bg-info text-dark";
+      } else {
+        status = "Melebihi Anggaran";
+        badgeColor = "bg-danger";
+        if (selisih * 100 <= rencana * 10) {
+          ket = "Perlu Evaluasi";
+        } else {
+          ket = "Peringatan";
+        }
+      }
+
+      // Update Output Modul A
+      document.getElementById('simOutNama').innerText = nama;
+      document.getElementById('simBadgeStatus').className = 'badge ' + badgeColor;
+      document.getElementById('simBadgeStatus').innerText = status;
+      document.getElementById('simOutSelisih').innerText = (selisih >= 0 ? "+Rp" : "-Rp") + Math.abs(selisih).toLocaleString('id-ID');
+      document.getElementById('simOutSelisih').className = 'fw-bold ' + (selisih > 0 ? "text-danger" : selisih < 0 ? "text-success" : "text-info");
+      document.getElementById('simOutPersen').innerText = (persen >= 0 ? "+" : "") + persen.toFixed(2) + "%";
+      document.getElementById('simOutKet').innerText = ket;
+      document.getElementById('simOutKet').className = 'badge ' + (ket === "Peringatan" ? "bg-danger" : ket === "Perlu Evaluasi" ? "bg-warning text-dark" : "bg-dark");
+
+      // Modul B Logic
+      simState.totalKomponen++;
+      simState.totalRencana += rencana;
+      simState.totalRealisasi += realisasi;
+
+      if (realisasi < rencana) {
+        simState.jumlahHemat++;
+        simState.totalPenghematan += (rencana - realisasi);
+      } else if (realisasi === rencana) {
+        simState.jumlahTepat++;
+      } else {
+        simState.jumlahMelebihi++;
+        simState.totalKelebihan += selisih;
+        if (selisih > simState.penyimpanganTerbesar) {
+          simState.penyimpanganTerbesar = selisih;
+          simState.komponenTerbesar = nama;
+        }
+      }
+
+      // Update Tampilan Modul B
+      updateSimModulB();
+
+      // Clear input
+      document.getElementById('simNama').value = "";
+      document.getElementById('simRencana').value = "";
+      document.getElementById('simRealisasi').value = "";
+      document.getElementById('simNama').focus();
+    }
+
+    function updateSimModulB() {
+      const penyerapan = simState.totalRencana > 0 ? (simState.totalRealisasi / simState.totalRencana) * 100 : 0;
+      let kondisi = "-";
+      let kondisiColor = "text-light";
+
+      if (simState.totalKomponen > 0) {
+        if (simState.totalRealisasi < simState.totalRencana) {
+          kondisi = "Hemat";
+          kondisiColor = "text-success";
+        } else if (simState.totalRealisasi === simState.totalRencana) {
+          kondisi = "Sesuai Anggaran";
+          kondisiColor = "text-info";
+        } else {
+          kondisi = "Melebihi Anggaran";
+          kondisiColor = "text-danger";
+        }
+      }
+
+      document.getElementById('simTotPos').innerText = simState.totalKomponen;
+      document.getElementById('simTotRencana').innerText = "Rp" + simState.totalRencana.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+      document.getElementById('simTotRealisasi').innerText = "Rp" + simState.totalRealisasi.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+      document.getElementById('simTotHemat').innerText = "Rp" + simState.totalPenghematan.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+      document.getElementById('simTotLebih').innerText = "Rp" + simState.totalKelebihan.toLocaleString('id-ID', { minimumFractionDigits: 2 });
+      document.getElementById('simTotPenyerapan').innerText = penyerapan.toFixed(2) + "%";
+      document.getElementById('simTotStat').innerText = `Hemat: ${simState.jumlahHemat} | Tepat: ${simState.jumlahTepat} | Lebih: ${simState.jumlahMelebihi}`;
+      document.getElementById('simPeak').innerText = simState.penyimpanganTerbesar > 0 ? `${simState.komponenTerbesar} (+Rp${simState.penyimpanganTerbesar.toLocaleString('id-ID')})` : "-";
+      
+      const elKondisi = document.getElementById('simKondisi');
+      elKondisi.innerText = kondisi;
+      elKondisi.className = "fw-bold text-end fs-6 " + kondisiColor;
+    }
+
+    function simReset() {
+      simState = {
+        totalKomponen: 0,
+        totalRencana: 0,
+        totalRealisasi: 0,
+        totalPenghematan: 0,
+        totalKelebihan: 0,
+        jumlahHemat: 0,
+        jumlahTepat: 0,
+        jumlahMelebihi: 0,
+        penyimpanganTerbesar: 0,
+        komponenTerbesar: "-"
+      };
+      document.getElementById('simNama').value = "";
+      document.getElementById('simRencana').value = "";
+      document.getElementById('simRealisasi').value = "";
+      document.getElementById('simAlert').classList.add('d-none');
+      document.getElementById('simOutNama').innerText = "-";
+      document.getElementById('simBadgeStatus').className = "badge bg-secondary";
+      document.getElementById('simBadgeStatus').innerText = "-";
+      document.getElementById('simOutSelisih').innerText = "-";
+      document.getElementById('simOutPersen').innerText = "-";
+      document.getElementById('simOutKet').innerText = "-";
+      updateSimModulB();
+    }
+
+    function simPreset(id) {
+      simReset();
+      if (id === 1) {
+        // Preset Campuran
+        const data = [
+          { nama: "Konsumsi Acara", rencana: 500000, realisasi: 400000 },
+          { nama: "Dekorasi Panggung", rencana: 300000, realisasi: 300000 },
+          { nama: "Publikasi dan Medsos", rencana: 200000, realisasi: 350000 }
+        ];
+        data.forEach(item => {
+          document.getElementById('simNama').value = item.nama;
+          document.getElementById('simRencana').value = item.rencana;
+          document.getElementById('simRealisasi').value = item.realisasi;
+          simTambahKomponen();
+        });
+      } else if (id === 2) {
+        // Preset Hemat
+        const data = [
+          { nama: "Transportasi Pemateri", rencana: 800000, realisasi: 600000 },
+          { nama: "Perlengkapan Panitia", rencana: 1200000, realisasi: 1000000 }
+        ];
+        data.forEach(item => {
+          document.getElementById('simNama').value = item.nama;
+          document.getElementById('simRencana').value = item.rencana;
+          document.getElementById('simRealisasi').value = item.realisasi;
+          simTambahKomponen();
+        });
+      } else if (id === 3) {
+        // Preset Tepat
+        const data = [
+          { nama: "Honor Pemateri", rencana: 1500000, realisasi: 1500000 },
+          { nama: "Sewa Zoom Pro", rencana: 250000, realisasi: 250000 }
+        ];
+        data.forEach(item => {
+          document.getElementById('simNama').value = item.nama;
+          document.getElementById('simRencana').value = item.rencana;
+          document.getElementById('simRealisasi').value = item.realisasi;
+          simTambahKomponen();
+        });
+      }
+    }
+  </script>
+</body>
+</html>
