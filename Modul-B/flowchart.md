@@ -2,18 +2,6 @@
 
 ## Flowchart
 
-### Gambar Diagram Alir (Vektor Resolusi Tinggi)
-
-![Diagram Alir Flowchart Modul B](gambar/flowchart.svg)
-
-> 💡 **Petunjuk Akses:**  
-> - Berkas gambar di atas berformat vektor **SVG** ([gambar/flowchart.svg](gambar/flowchart.svg)) sehingga tidak akan pecah saat di-zoom atau dicetak.
-> - Anda juga dapat membuka penampil interaktif di browser untuk mengekspor langsung menjadi gambar PNG melalui berkas: **[flowchart_viewer.html](gambar/flowchart_viewer.html)**.
-
----
-
-### Kode Sumber Diagram Alir (Mermaid)
-
 ```mermaid
 flowchart TD
     A([Mulai]) --> B["Inisialisasi:<br>totalRencana = 0, totalRealisasi = 0<br>totalPenghematan = 0, totalKelebihan = 0<br>jumlahHemat = 0, jumlahTepat = 0, jumlahMelebihi = 0<br>totalKomponen = 0, penyimpanganTerbesar = 0<br>komponenTerbesar = '-', kondisiKegiatan = '-'"]
