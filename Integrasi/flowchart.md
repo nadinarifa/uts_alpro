@@ -2,10 +2,6 @@
 
 **Penanggung Jawab:** Nadin Arifa Salsabila (322610009) & Bryant Anthony Kores Obhetan (322610003)
 
-> 💡 **Petunjuk Akses:**  
-> Anda dapat melihat diagram alir terintegrasi ini secara interaktif dan mengunduh gambar PNG berkualitas tinggi melalui berkas: **[flowchart_viewer.html](flowchart_viewer.html)**.
-
----
 
 ### Kode Sumber Diagram Alir (Mermaid)
 
